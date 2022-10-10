@@ -3,7 +3,7 @@ A small educational program to solve Eyring Equation and first/second order kine
 
 To run the program, call `python Eyring_Eq.py`. You should be able to run it with stock Anaconda. 
 
-Alternatively, you can download a release for Windows which has an executable packed with `Cx_Freeze` (I don't have the interest to optimize it, so it's quite large).
+Alternatively, you can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases/tag/1.0) for Windows which has an executable packed with `Cx_Freeze` (I don't have the interest to optimize it, so it's quite large).
 
 ##
 When people discussing calculated activation Gibbs free energies in literatures, it's common to see people quoting general, inexact rules like "activation Gibbs free energy for room temperature reaction should be below 21 kcal/mol", while asking for references for reaction at different temperature. However, it's easy to calculate the reaction time, required temperatures, etc, from Eyring equation and first/second order kinetics (suppose the reaction is kinetically controlled).
