@@ -26,9 +26,6 @@ from Lib import *
 if not Qt.QApplication.instance():
     Application = Qt.QApplication(sys.argv)
 
-    # Sometimes, the scaling factor of PyQt is different from the Windows system scaling factor, reason unknown
-    # For example, on a 4K screen sets to 250% scaling on Windows, PyQt reads a default 300% scaling,
-    # causing everything to be too large
 
     if platform.system() == 'Windows':
         import ctypes

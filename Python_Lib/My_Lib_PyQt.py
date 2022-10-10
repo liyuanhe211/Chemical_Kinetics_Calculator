@@ -38,6 +38,11 @@ from My_Lib_Stock import *
 
 
 def set_Windows_scaling_factor_env_var():
+
+    # Sometimes, the scaling factor of PyQt is different from the Windows system scaling factor, reason unknown
+    # For example, on a 4K screen sets to 250% scaling on Windows, PyQt reads a default 300% scaling,
+    # causing everything to be too large, this function is to determine the ratio of the real DPI and the PyQt DPI
+
     import platform
     if platform.system() == 'Windows':
         import ctypes
