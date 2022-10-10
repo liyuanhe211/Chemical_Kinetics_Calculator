@@ -36,7 +36,7 @@ def get_k_TST(Δn, σ, T, ΔG):
     Returns:
 
     """
-        return (σ * k_B * T / h) * ((R * T / atm__Pa) ** Δn) * math.exp(-ΔG / R / T)
+    return (σ * k_B * T / h) * ((R * T / atm__Pa) ** Δn) * math.exp(-ΔG / R / T)
 
 
 get_k_TST_vectorize = np.vectorize(get_k_TST)

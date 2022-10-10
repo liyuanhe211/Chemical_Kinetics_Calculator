@@ -37,16 +37,16 @@ if not Qt.QApplication.instance():
         del Application
         Application = Qt.QApplication(sys.argv)
 
-        APPID = 'LYH.EryingEq.0.1'
+        APPID = 'LYH.EyringEq.0.1'
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(APPID)
 
-        Application.setWindowIcon(Qt.QIcon('UI/Erying_Eq.png'))
+        Application.setWindowIcon(Qt.QIcon('UI/Eyring_Eq.png'))
         print('If there is a warning above starts with "libpng", ignore that.')
 
 
 if __name__ == '__main__':
-    pyqt_ui_compile('Erying_Eq.py')
-    from UI.Erying_Eq import Ui_Erying_Eq
+    pyqt_ui_compile('Eyring_Eq.py')
+    from UI.Eyring_Eq import Ui_Eyring_Eq
 
 
 def evaluate_expression(expression: str):
@@ -59,7 +59,7 @@ def evaluate_expression(expression: str):
         return None
 
 
-class myWidget(Ui_Erying_Eq, Qt.QWidget, Qt_Widget_Common_Functions):
+class myWidget(Ui_Eyring_Eq, Qt.QWidget, Qt_Widget_Common_Functions):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)

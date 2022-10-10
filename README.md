@@ -1,9 +1,9 @@
 # Eyring Equation and Chemical Kinetics Calculator
-A small educational program to solve Erying Equation and first/second order kinetics.
-To run the program, call `python Erying_Eq.py`. You should be able to run it with stock Anaconda. Alternatively, you can download a release for Windows which has an executable packed with `Cx_Freeze`.
+A small educational program to solve Eyring Equation and first/second order kinetics.
+To run the program, call `python Eyring_Eq.py`. You should be able to run it with stock Anaconda. Alternatively, you can download a release for Windows which has an executable packed with `Cx_Freeze`.
 
 ##
-When people discussing calculated activation Gibbs free energies in literatures, it's common to see people quoting general, inexact rules like "activation Gibbs free energy for room temperature reaction should be below 21 kcal/mol", while asking for references for reaction at different temperature. However, it's easy to calculate the reaction time, required temperatures, etc, from Erying equation and first/second order kinetics (suppose the reaction is kinetically controlled).
+When people discussing calculated activation Gibbs free energies in literatures, it's common to see people quoting general, inexact rules like "activation Gibbs free energy for room temperature reaction should be below 21 kcal/mol", while asking for references for reaction at different temperature. However, it's easy to calculate the reaction time, required temperatures, etc, from Eyring equation and first/second order kinetics (suppose the reaction is kinetically controlled).
 
 So I wrote this small program for this purpose. For example:
 
@@ -22,7 +22,7 @@ For a reaction with 120 kJ/mol activation Gibbs free energy (note that you do ne
 Or any other valid combination of known/unknown values.
 ##
 ### Equations
- * Erying Equation:
+ * Eyring Equation:
 
 $$k =\sigma\frac{k_B  T}{h}\left ( \frac{R T}{1\ atm} \right )^{\Delta n}exp(-\frac{{\Delta G}^{\neq}}{R T})$$
 
