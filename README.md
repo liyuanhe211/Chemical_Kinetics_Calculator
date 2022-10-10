@@ -37,7 +37,7 @@ $$c = c_{0}\ exp(-kT)$$
 
 Starting with different concentration for species A and B:
 
-$$ln\frac{[B][A]_{0}}{[A][B]_{0}} = k([B]_{0}-[A]_{0})t$$
+$$ln\frac{[B] [A]_{0}}{[A] [B]_{0}} = k([B]_{0}-[A]_{0})t$$
 
 Starting A and B at the same concentration:
 
