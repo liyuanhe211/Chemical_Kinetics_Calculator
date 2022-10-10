@@ -83,16 +83,16 @@ def solve_for_T(k_TST, Δn, σ, ΔG):
 
 
 def first_order_reaction_time(k_TST, conv):
-    print(f"Calculating time from first order kinetics.\n    Rate constant: {k_TST} s^-1, conversion: {conv} s.")
+    print(f"Calculating time from first order kinetics.\n    Rate constant: {k_TST} s^-1, conversion: {conv}.")
     half_life_count = math.log((1 - conv), 1 / 2)
     half_life = math.log(2) / k_TST
     return half_life_count * half_life
 
 
 def first_order_conversion(k_TST, time):
-    print(f"Calculating time from first order kinetics.\n    Rate constant: {k_TST} s^-1, time: {time} s.")
+    print(f"Calculating conv from first order kinetics.\n    Rate constant: {k_TST} s^-1, time: {time} s.")
     half_life = math.log(2) / k_TST
-    half_life_count = half_life / time
+    half_life_count = time/half_life
     return 1 - 1 / 2 ** half_life_count
 
 
@@ -117,7 +117,7 @@ def second_order_conv_A_plus_A(k_TST, time, conc):
     """
     1 / [A] = k_TST * t + 1 / [A]_0
     """
-    print(f"Calculating time from first order kinetics.\n    Rate constant: {k_TST} m^3·mol^-1·s^-1, time: {time} s, concentration: {conc} mol/m^3.")
+    print(f"Calculating conv from second order kinetics.\n    Rate constant: {k_TST} m^3·mol^-1·s^-1, time: {time} s, concentration: {conc} mol/m^3.")
     end_conc = 1 / (k_TST * time + 1 / conc)
     conv = 1 - end_conc / conc
     return conv
@@ -150,7 +150,7 @@ def second_order_conv_A_plus_B(k_TST, time, conc1, conc2):
     ln([A]/[B]) = k_TST * ([A]_0 - [B]_0) * time + ln([A]_0/[B]_0)
     ln((A0-x)/(B0-x)) = k_TST * (A0 - B0) * time + ln(A0/B0)
     """
-    print(f"Calculating time from first order kinetics.\n    Rate constant: {k_TST} m^3·mol^-1·s^-1, time: {time} s, concentrations: {conc1}, {conc2} mol/m^3.")
+    print(f"Calculating conv from second order kinetics.\n    Rate constant: {k_TST} m^3·mol^-1·s^-1, time: {time} s, concentrations: {conc1}, {conc2} mol/m^3.")
     A0, B0 = min(conc1, conc2), max(conc1, conc2)
     left = k_TST * (A0 - B0) * time + math.log(A0 / B0)  # ln((A0-x)/(B0-x))
     after_exp = math.exp(left)  # (A0-x)/(B0-x)

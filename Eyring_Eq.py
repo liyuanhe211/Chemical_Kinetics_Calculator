@@ -214,7 +214,6 @@ class myWidget(Ui_Eyring_Eq, Qt.QWidget, Qt_Widget_Common_Functions):
 
     def calc(self):
         if self.unimolecular_radioButton.isChecked():
-            print("haha")
             Δn = 0
 
             def k_from_kinetics(conv, time, conc1=None, conc2=None):
@@ -287,7 +286,7 @@ class myWidget(Ui_Eyring_Eq, Qt.QWidget, Qt_Widget_Common_Functions):
                 self.total_time_lineEdit.setText(smart_format_float(t))
             elif 'conv' in self.is_None:
                 conv = conv_from_kinetics(kTST, t, c1, c2)
-                self.conversion_lineEdit.setText(smart_format_float(conv))
+                self.conversion_lineEdit.setText(smart_format_float(conv*100))
 
         print("---------------------------------\n\n")
 
