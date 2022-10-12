@@ -46,7 +46,6 @@ def set_Windows_scaling_factor_env_var():
     import platform
     if platform.system() == 'Windows':
         import ctypes
-
         try:
             import win32api
             MDT_EFFECTIVE_DPI = 0
@@ -60,6 +59,7 @@ def set_Windows_scaling_factor_env_var():
         DPI_ratio_for_device = ctypes.windll.shcore.GetScaleFactorForDevice(0) / 100
         PyQt_scaling_ratio = QApplication.primaryScreen().devicePixelRatio()
         print(f"Windows 10 High-DPI debug:",end=' ')
+        Windows_DPI_ratio = DPI_ratio_for_monitor if DPI_ratio_for_monitor else DPI_ratio_for_device
         if DPI_ratio_for_monitor:
             print("Using monitor DPI.")
             ratio_of_ratio = DPI_ratio_for_monitor / PyQt_scaling_ratio
@@ -73,6 +73,28 @@ def set_Windows_scaling_factor_env_var():
             print(f"Using GUI high-DPI ratio: {use_ratio}")
             print("----------------------------------------------------------------------------")
             os.environ["QT_SCALE_FACTOR"] = use_ratio
+        else:
+            print("Ratio of ratio near 1. Not scaling.")
+
+        return Windows_DPI_ratio,PyQt_scaling_ratio
+
+
+def get_matplotlib_DPI_setting(Windows_DPI_ratio):
+    matplotlib_DPI_setting = 60
+    if platform.system() == 'Windows':
+        matplotlib_DPI_setting = 60/Windows_DPI_ratio
+    if os.path.isfile("__matplotlib_DPI_Manual_Setting.txt"):
+        matplotlib_DPI_manual_setting = open("__matplotlib_DPI_Manual_Setting.txt").read()
+        if is_int(matplotlib_DPI_manual_setting):
+            matplotlib_DPI_setting = matplotlib_DPI_manual_setting
+    else:
+        with open("__matplotlib_DPI_Manual_Setting.txt",'w') as matplotlib_DPI_Manual_Setting_file:
+            matplotlib_DPI_Manual_Setting_file.write("")
+    matplotlib_DPI_setting = int(matplotlib_DPI_setting)
+    print(f"\nMatplotlib DPI: {matplotlib_DPI_setting}. \nSet an appropriate integer in __matplotlib_DPI_Manual_Setting.txt if the preview size doesn't match the output.\n")
+
+    return matplotlib_DPI_setting
+
 
 def get_open_directories():
     if not Qt.QApplication.instance():
