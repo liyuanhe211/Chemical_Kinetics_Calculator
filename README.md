@@ -48,4 +48,4 @@ $$\frac{1}{[A]} = \frac{1}{[A]_{0}}+kt$$
 ### Citing
 I believe Erying equation and the first/second order kinetics are old enough and well-known enough to require no citation. However, if you have to cite this, you can use the Zenodo DOI: `10.5281/zenodo.7214153`. 
 
-E.g. Li, Y.-H. Eyring Equation and Chemical Kinetics Calculator 1.1.1 (DOI: 10.5281/zenodo.7214153), 2022.
+E.g. Li, Y.-H. _Eyring Equation and Chemical Kinetics Calculator 1.1.1_ (DOI: 10.5281/zenodo.7214153), **2022**.
