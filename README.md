@@ -8,9 +8,16 @@ To run the program, call `python Eyring_Eq.py`. You should be able to run it wit
 Alternatively, you can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases/download/1.1/Eyring_Eq.7z) for Windows which has an executable packed with `Cx_Freeze` (I don't have the interest to optimize it, so it's quite large). Git-Hub下载被墙的话用[百度网盘链接](https://pan.baidu.com/s/15FdnRNkDHTdpudQCmC5B0A?pwd=j444).
 
 ##
+### Background
 When people discussing calculated activation Gibbs free energies in literatures, it's common to see people quoting inexact rules like "21 kcal/mol at room temperature". They even ask for reference to support this crude rule, and ask for values at different conditon. 
 
-However, it's easy to calculate the reaction time, required temperatures, etc, from Eyring equation and first/second order kinetics (suppose the reaction is kinetically controlled). So I wrote this small program for this purpose. For example, you can calculate:
+However, it's easy to calculate the reaction time, required temperatures, etc, from Eyring equation and first/second order kinetics (suppose the reaction is kinetically controlled). So I wrote this small program for this purpose. 
+
+### Usage
+
+Fill in the known values for the equations. Leave blank the unkonwns. If the number of parameters are sufficient, the calculate button will be available. Click it to get the values you left blank.
+
+For example, you can calculate:
 
 For a 21 kcal/mol unimolecular reaction to get a 98% conversion at 20 °C, you need 49 min.
 
