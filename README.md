@@ -15,7 +15,7 @@ However, it's easy to calculate the reaction time, required temperatures, etc, f
 
 ### Usage
 
-Fill in the known values for the equations. Leave blank the unkonwns. If the number of parameters are sufficient, the calculate button will be available. Click it to get the values you left blank.
+Fill in the known values for the equations. Leave blank the unkonwns. If the number of parameters are sufficient, the `Calculate` button will be available. Click it to get the values you left blank.
 
 For example, you can calculate:
 
