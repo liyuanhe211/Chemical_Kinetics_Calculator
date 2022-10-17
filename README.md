@@ -35,7 +35,7 @@ $$c = c_{0}\ exp(-kT)$$
 
  * Second order kinetics:
 
-Starting with different concentration for species A and B:
+Starting with different concentration for species A and B (could someone tell my why the zeros are not subscripted?):
 
 $$ln\frac{[B] [A]_{0}}{[A] [B]_{0}} = k([B]_{0}-[A]_{0})t$$
 
