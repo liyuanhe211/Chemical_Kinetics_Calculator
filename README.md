@@ -1,4 +1,6 @@
 # Eyring Equation and Chemical Kinetics Calculator
+[![DOI](https://zenodo.org/badge/548741869.svg)](https://zenodo.org/badge/latestdoi/548741869)
+
 A small educational program to solve Eyring Equation and first/second order kinetics.
 
 To run the program, call `python Eyring_Eq.py`. You should be able to run it with stock Anaconda. 
