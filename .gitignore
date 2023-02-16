@@ -2,7 +2,6 @@
 /.idea/
 *.pyc
 *.spec
-*.iml
 /Pyinstaller_Packing/
 /Obsolete packing/
 /.venv/
