@@ -6,3 +6,4 @@
 /Pyinstaller_Packing/
 /Obsolete packing/
 /.venv/
+*.iml
