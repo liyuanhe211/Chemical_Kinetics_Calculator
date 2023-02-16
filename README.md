@@ -60,7 +60,7 @@ E.g. Li, Y.-H. _Eyring Equation and Chemical Kinetics Calculator 1.1.1_ (DOI: 10
 
 ##
 ### Update History
-## 1.2
+**1.2**
  * Support A+Cat->P+Cat mode.
  * Support kcal/mol, eV, min, h, day, year units.
  * Add shortcut to pushbuttons.
