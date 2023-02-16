@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>559</width>
-    <height>380</height>
+    <width>620</width>
+    <height>402</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,8 +27,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -45,8 +44,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -69,8 +67,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -93,8 +90,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -120,37 +116,15 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>Conc. 1</string>
+        <string>Conc. A</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QLabel" name="label_8">
-       <property name="minimumSize">
-        <size>
-         <width>45</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>kJ/mol</string>
        </property>
       </widget>
      </item>
@@ -159,8 +133,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -180,8 +153,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -195,13 +167,12 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ΔG&lt;span style=&quot; vertical-align:super;&quot;&gt;≠&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Δ&lt;span style=&quot; font-style:italic;&quot;&gt;G&lt;/span&gt;&lt;span style=&quot; font-style:italic; vertical-align:super;&quot;&gt;≠ &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -219,8 +190,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -234,13 +204,12 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;k&lt;span style=&quot; vertical-align:sub;&quot;&gt;TST&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;k&lt;/span&gt;&lt;span style=&quot; vertical-align:sub;&quot;&gt;TST&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -251,10 +220,19 @@
       <widget class="Line" name="line">
        <property name="font">
         <font>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(224, 224, 224);</string>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>1</number>
        </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -272,8 +250,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -289,10 +266,16 @@
       <widget class="Line" name="line_2">
        <property name="font">
         <font>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(224, 224, 224);</string>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -310,8 +293,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -321,32 +303,16 @@
       </widget>
      </item>
      <item row="1" column="7">
-      <widget class="QLabel" name="label_13">
+      <widget class="QLabel" name="conc1_unit_label">
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
         <string>mol/L</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="7">
-      <widget class="QLabel" name="label_10">
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>s</string>
        </property>
       </widget>
      </item>
@@ -361,8 +327,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -385,8 +350,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -399,12 +363,11 @@
       </widget>
      </item>
      <item row="3" column="5">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="conv_label">
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -421,8 +384,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -445,8 +407,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -460,13 +421,12 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>Conc. 2</string>
+        <string>Conc. B</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -478,8 +438,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -499,8 +458,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -523,13 +481,15 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
         <string>Calculate</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+Shift+C</string>
        </property>
       </widget>
      </item>
@@ -544,13 +504,15 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
         <string>Reset All</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+Shift+R</string>
        </property>
       </widget>
      </item>
@@ -571,8 +533,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>16</pointsize>
-         <weight>50</weight>
+         <pointsize>10</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -598,8 +559,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>16</pointsize>
-         <weight>50</weight>
+         <pointsize>10</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -625,8 +585,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>16</pointsize>
-         <weight>50</weight>
+         <pointsize>10</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -652,8 +611,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>16</pointsize>
-         <weight>50</weight>
+         <pointsize>10</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -679,8 +637,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>16</pointsize>
-         <weight>50</weight>
+         <pointsize>10</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -696,8 +653,7 @@
          <property name="font">
           <font>
            <family>Arial</family>
-           <pointsize>11</pointsize>
-           <weight>75</weight>
+           <pointsize>10</pointsize>
            <bold>true</bold>
           </font>
          </property>
@@ -710,8 +666,7 @@
             <property name="font">
              <font>
               <family>Arial</family>
-              <pointsize>11</pointsize>
-              <weight>75</weight>
+              <pointsize>10</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -737,8 +692,7 @@
             <property name="font">
              <font>
               <family>Arial</family>
-              <pointsize>11</pointsize>
-              <weight>75</weight>
+              <pointsize>10</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -754,12 +708,11 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_3">
+           <spacer name="horizontalSpacer_5">
             <property name="font">
              <font>
               <family>Arial</family>
-              <pointsize>11</pointsize>
-              <weight>75</weight>
+              <pointsize>10</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -785,8 +738,7 @@
             <property name="font">
              <font>
               <family>Arial</family>
-              <pointsize>11</pointsize>
-              <weight>75</weight>
+              <pointsize>10</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -799,12 +751,11 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_2">
+           <spacer name="horizontalSpacer_3">
             <property name="font">
              <font>
               <family>Arial</family>
-              <pointsize>11</pointsize>
-              <weight>75</weight>
+              <pointsize>10</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -830,8 +781,7 @@
             <property name="font">
              <font>
               <family>Arial</family>
-              <pointsize>11</pointsize>
-              <weight>75</weight>
+              <pointsize>10</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -844,12 +794,54 @@
            </widget>
           </item>
           <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="bimolecular_A_Cat_radioButton">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>10</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="focusPolicy">
+             <enum>Qt::ClickFocus</enum>
+            </property>
+            <property name="text">
+             <string>A + Cat → P + Cat</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="horizontalSpacer_4">
             <property name="font">
              <font>
               <family>Arial</family>
-              <pointsize>11</pointsize>
-              <weight>75</weight>
+              <pointsize>10</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -886,8 +878,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>16</pointsize>
-         <weight>50</weight>
+         <pointsize>10</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -913,8 +904,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>16</pointsize>
-         <weight>50</weight>
+         <pointsize>10</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -940,8 +930,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>16</pointsize>
-         <weight>50</weight>
+         <pointsize>10</pointsize>
          <bold>false</bold>
         </font>
        </property>
@@ -961,8 +950,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -974,16 +962,132 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="2">
+      <widget class="QComboBox" name="energy_unit_comboBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="currentText">
+        <string>kJ/mol</string>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>kJ/mol</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>kcal/mol</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>eV</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="4" column="7">
+      <widget class="QComboBox" name="time_unit_comboBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="currentText">
+        <string>s</string>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>s</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>min</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>h</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>d</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>year</string>
+        </property>
+       </item>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
     <widget class="Line" name="line_3">
      <property name="font">
       <font>
-       <pointsize>11</pointsize>
-       <weight>75</weight>
+       <family>Arial</family>
+       <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(224, 224, 224);</string>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -995,13 +1099,12 @@
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>11</pointsize>
-       <weight>50</weight>
+       <pointsize>10</pointsize>
        <bold>false</bold>
       </font>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can input any Python arithmetic expression, e.g. 2E3*4.18 (= 8360).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can input any Python arithmetic expression, e.g. input 2E3*4.18 for 8360.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -1010,13 +1113,25 @@
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>11</pointsize>
-       <weight>50</weight>
+       <pointsize>10</pointsize>
        <bold>false</bold>
       </font>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If the [Calculate] button is not enabled, check your number of parameters.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="status_label_5">
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shortcut: Reset - [Ctrl+Shift+R], Calculate - [Ctrl+Shift+C]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -1033,6 +1148,16 @@
   <tabstop>calculate_pushButton</tabstop>
   <tabstop>reset_all_pushButton</tabstop>
   <tabstop>sigma_lineEdit</tabstop>
+  <tabstop>energy_unit_comboBox</tabstop>
+  <tabstop>time_unit_comboBox</tabstop>
+  <tabstop>clear_G_pushButton</tabstop>
+  <tabstop>clear_T_pushButton</tabstop>
+  <tabstop>clear_k_pushButton</tabstop>
+  <tabstop>clear_conc1_pushButton</tabstop>
+  <tabstop>clear_conc2_pushButton</tabstop>
+  <tabstop>clear_conv_pushButton</tabstop>
+  <tabstop>clear_t_pushButton</tabstop>
+  <tabstop>clear_sigma_pushButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

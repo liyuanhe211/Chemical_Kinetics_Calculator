@@ -1,7 +1,8 @@
-/Cx_Freeze.py
 /UI/Eyring_Eq.psd
 /.idea/
-/build/
 *.pyc
-/Obsolete Cx_Freeze/
-/dist/
+*.spec
+*.iml
+/Pyinstaller_Packing/
+/Obsolete packing/
+/.venv/
