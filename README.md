@@ -1,21 +1,19 @@
 # Eyring Equation and Chemical Kinetics Calculator
 [![DOI](https://zenodo.org/badge/548741869.svg)](https://zenodo.org/badge/latestdoi/548741869)
 
-A small educational program to solve Eyring Equation and first/second order kinetics.
+This is a small educational program that can solve the Eyring Equation and first/second order kinetics.
 
-To run the program, call `python Eyring_Eq.py`. You should be able to run it with stock Anaconda. 
+To run the program, call `python Eyring_Eq.py`. The virtual environment can be installed with the pipenv pipfile.
 
-Alternatively, you can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases/download/1.1/Eyring_Eq.7z) for Windows which has an executable packed with `Cx_Freeze` (I don't have the interest to optimize it, so it's quite large). 
+Alternatively, you can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases) for Windows which includes an executable packed with `pyinstaller`.
 
 ##
 ### Background
-When people discussing calculated activation Gibbs free energies in literatures, it's common to see people quoting inexact rules like "21 kcal/mol at room temperature". They even ask for reference to support this crude rule, and ask for values at different conditon. 
-
-However, it's easy to calculate the reaction time, required temperatures, etc, from Eyring equation and first/second order kinetics (suppose the reaction is kinetically controlled). So I wrote this small program for this purpose. 
+In literature, people often quote inexact rules like "21 kcal/mol at room temperature" when discussing calculated activation Gibbs free energies. They might even ask for a reference to support these crude rules or ask for values at different conditions. However, it's easy to calculate the reaction time, required temperatures, etc. from the Eyring equation and first/second order kinetics (assuming the reaction is kinetically controlled). So, I created this small program for that purpose.
 
 ### Usage
 
-Fill in the known values for the equations. Leave blank the unknowns. If the number of filled parameters are sufficient (and not excessive), the `Calculate` button will be available. Click it to get the values you left blank.
+To use the program, fill in the known values for the equations, and leave the unknown values blank. If the number of filled parameters is sufficient (and not excessive), the \[Calculate\] button will become available. Click it to get the values you left blank. 
 
 For example, you can calculate:
 
@@ -54,7 +52,7 @@ $$\frac{1}{[A]} = \frac{1}{[A]_{0}}+kt$$
 
 ##
 ### Citation
-I believe Erying equation and the first/second order kinetics are old enough and well-known enough to require no citation. However, if you have to cite this, you can use the Zenodo DOI: `10.5281/zenodo.7214153`. 
+I believe the Eyring equation and the first/second order kinetics are old and well-known enough to not require citation. However, if you need to cite this program, you can use the Zenodo DOI: `10.5281/zenodo.7214153`.
 
 E.g. Li, Y.-H. _Eyring Equation and Chemical Kinetics Calculator 1.1.1_ (DOI: 10.5281/zenodo.7214153), **2022**.
 
