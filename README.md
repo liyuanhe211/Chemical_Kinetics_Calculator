@@ -52,7 +52,7 @@ $$\frac{1}{[A]} = \frac{1}{[A]_{0}}+kt$$
 
 ##
 ### Citation
-I believe the Eyring equation and the first/second order kinetics are old and well-known enough to not require citation. However, if you need to cite this program, you can use the Zenodo DOI.
+I believe the Eyring equation and the first/second order kinetics are old and well-known enough to not require citation. However, if you need to cite this program, you can use the Zenodo DOI [![DOI](https://zenodo.org/badge/548741869.svg)](https://zenodo.org/badge/latestdoi/548741869).
 
 E.g. Li, Y.-H. _Eyring Equation and Chemical Kinetics Calculator 1.1.1_ (DOI: 10.5281/zenodo.7214153), **2022**. (Please change the info to respect the version you are using.)
 
