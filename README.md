@@ -36,6 +36,7 @@ I believe the Eyring equation and the first/second order kinetics are old and we
 
 E.g. Li, Y.-H. _Eyring Equation and Chemical Kinetics Calculator X.X.X_ (DOI: 10.5281/zenodo.XXXXXXX), **2023**. (Please change the info to respect the version you are using.)
 
+##
 ### Equations
  * Eyring Equation:
 
