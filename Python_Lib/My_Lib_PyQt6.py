@@ -3,16 +3,14 @@ __author__ = 'LiYuanhe'
 
 #
 import os
-from PyQt6 import QtGui,QtCore,QtWidgets,uic
+from PyQt6 import QtGui, QtCore, QtWidgets, uic
 from PyQt6.QtWidgets import QApplication
 import platform
 
-#
 # import matplotlib
-#
-# matplotlib.use("Qt5Agg")
-# from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as MpFigureCanvas
-# from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as MpNavToolBar
+# matplotlib.use("QtAgg")
+# from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as MpFigureCanvas
+# from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as MpNavToolBar
 # from matplotlib import pyplot
 # import matplotlib.patches as patches
 # from matplotlib.figure import Figure as MpFigure
@@ -32,6 +30,7 @@ import pathlib
 Python_Lib_path = str(pathlib.Path(__file__).parent.resolve())
 sys.path.append(Python_Lib_path)
 from My_Lib_Stock import *
+
 
 #
 # def set_Windows_scaling_factor_env_var():
@@ -78,21 +77,23 @@ from My_Lib_Stock import *
 #         return Windows_DPI_ratio,PyQt_scaling_ratio
 #
 #
-# def get_matplotlib_DPI_setting(Windows_DPI_ratio):
-#     matplotlib_DPI_setting = 60
-#     if platform.system() == 'Windows':
-#         matplotlib_DPI_setting = 60/Windows_DPI_ratio
-#     if os.path.isfile("__matplotlib_DPI_Manual_Setting.txt"):
-#         matplotlib_DPI_manual_setting = open("__matplotlib_DPI_Manual_Setting.txt").read()
-#         if is_int(matplotlib_DPI_manual_setting):
-#             matplotlib_DPI_setting = matplotlib_DPI_manual_setting
-#     else:
-#         with open("__matplotlib_DPI_Manual_Setting.txt",'w') as matplotlib_DPI_Manual_Setting_file:
-#             matplotlib_DPI_Manual_Setting_file.write("")
-#     matplotlib_DPI_setting = int(matplotlib_DPI_setting)
-#     print(f"\nMatplotlib DPI: {matplotlib_DPI_setting}. \nSet an appropriate integer in __matplotlib_DPI_Manual_Setting.txt if the preview size doesn't match the output.\n")
-#
-#     return matplotlib_DPI_setting
+def get_matplotlib_DPI_setting(Windows_DPI_ratio):
+    matplotlib_DPI_setting = 60
+    if platform.system() == 'Windows':
+        matplotlib_DPI_setting = 60 / Windows_DPI_ratio
+    if os.path.isfile("__matplotlib_DPI_Manual_Setting.txt"):
+        matplotlib_DPI_manual_setting = open("__matplotlib_DPI_Manual_Setting.txt").read()
+        if is_int(matplotlib_DPI_manual_setting):
+            matplotlib_DPI_setting = matplotlib_DPI_manual_setting
+    else:
+        with open("__matplotlib_DPI_Manual_Setting.txt", 'w') as matplotlib_DPI_Manual_Setting_file:
+            matplotlib_DPI_Manual_Setting_file.write("")
+    matplotlib_DPI_setting = int(matplotlib_DPI_setting)
+    print(
+        f"\nMatplotlib DPI: {matplotlib_DPI_setting}. \n"
+        f"Set an appropriate integer in __matplotlib_DPI_Manual_Setting.txt if the preview size doesn't match the output.\n")
+
+    return matplotlib_DPI_setting
 
 
 def get_open_directories():
@@ -112,12 +113,12 @@ def get_open_directories():
         f_tree_view.setSelectionMode(Qt.QAbstractItemView.MultiSelection)
 
     if file_dialog.exec():
-        paths = file_dialog.selectedFiles()
+        return file_dialog.selectedFiles()
 
-    return paths
+    return []
 
 
-class Qt_Widget_Common_Functions():
+class Qt_Widget_Common_Functions:
     closing = QtCore.pyqtSignal()
 
     def center_the_widget(self, activate_window=True):
@@ -145,7 +146,9 @@ class Qt_Widget_Common_Functions():
             with open(config_file) as self.config_File:
                 try:
                     self.config = eval(self.config_File.read())
-                except Exception:
+                except Exception as e:
+                    traceback.print_exc()
+                    print(e)
                     config_file_failure = True
 
         if config_file_failure:
@@ -200,7 +203,8 @@ class Drag_Drop_TextEdit(QtWidgets.QTextEdit):
 
 
 def default_signal_for_connection(signal):
-    if isinstance(signal, QtWidgets.QPushButton) or isinstance(signal, QtWidgets.QToolButton) or isinstance(signal, QtWidgets.QRadioButton) or isinstance(signal, QtWidgets.QCheckBox):
+    if isinstance(signal, QtWidgets.QPushButton) or isinstance(signal, QtWidgets.QToolButton) or isinstance(signal, QtWidgets.QRadioButton) or isinstance(
+            signal, QtWidgets.QCheckBox):
         signal = signal.clicked
     elif isinstance(signal, QtWidgets.QLineEdit):
         signal = signal.textChanged
@@ -215,7 +219,9 @@ def disconnect_all(signal, slot):
     while not marker:
         try:
             signal.disconnect(slot)
-        except Exception:  # TODO: determine what's the specific exception?
+        except Exception as e:  # TODO: determine what's the specific exception?
+            # traceback.print_exc()
+            # print(e)
             marker = True
 
 
@@ -225,7 +231,7 @@ def connect_once(signal, slot):
     signal.connect(slot)
 
 
-def build_fileDialog_filter(allowed_appendix: list, tags=[]):
+def build_fileDialog_filter(allowed_appendix: list, tags=()):
     """
 
     :param allowed_appendix: a list of list, each group shows together [[xlsx,log,out],[txt,com,gjf]]
@@ -296,7 +302,7 @@ def wait_confirmation_UI(parent=None, message=""):
         return False
 
 
-def get_open_file_UI(parent, start_path: str, allowed_appendix, title="No Title", tags=[], single=False):
+def get_open_file_UI(parent, start_path: str, allowed_appendix, title="No Title", tags=(), single=False):
     """
 
     :param parent
@@ -317,14 +323,14 @@ def get_open_file_UI(parent, start_path: str, allowed_appendix, title="No Title"
     if [x for x in allowed_appendix if isinstance(x, str)]:  # single list not list of list
         allowed_appendix = [allowed_appendix]
 
-    filename_filter = build_fileDialog_filter(allowed_appendix, tags)
+    filename_filter_string = build_fileDialog_filter(allowed_appendix, tags)
 
     if single:
-        ret = Qt.QFileDialog.getOpenFileName(parent, title, start_path, filename_filter)
+        ret = Qt.QFileDialog.getOpenFileName(parent, title, start_path, filename_filter_string)
         if ret:  # 上面返回 ('E:/My_Program/Python_Lib/elements_dict.txt', '(*.txt)')
             ret = ret[0]
     else:
-        ret = Qt.QFileDialog.getOpenFileNames(parent, title, start_path, filename_filter)
+        ret = Qt.QFileDialog.getOpenFileNames(parent, title, start_path, filename_filter_string)
         if ret:  # 上面返回 (['E:/My_Program/Python_Lib/elements_dict.txt'], '(*.txt)')
             ret = ret[0]
 
@@ -351,11 +357,11 @@ def show_pixmap(image_filename, graphicsView_object):
 
 
 def update_UI():
-    Qt.QCoreApplication.processEvents()
+    QtCore.QCoreApplication.processEvents()
 
 
 def exit_UI():
-    Qt.QCoreApplication.instance().quit()
+    QtCore.QCoreApplication.instance().quit()
 
 
 def clear_layout(layout):
