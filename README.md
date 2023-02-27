@@ -3,14 +3,26 @@
 
 This is a small educational program that can solve the Eyring Equation and first/second order kinetics.
 
-To run the program, call `python Eyring_Eq.py`. The virtual environment can be installed with the pipenv pipfile.
+##
+### Launch
 
-Alternatively, you can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases) for Windows which includes an executable packed with `pyinstaller`.
+You can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases) for Windows which includes the executable `Eyring Eq X.X.exe` (packed with `pyinstaller`).
+
+Alternatively, if you choose to set up your own environment:
+Launch a shell/cmd/PowerShell window from the cloned directory. Run:
+```
+pip install pipenv
+mkdir .venv
+pipenv sync
+pipenv run python Eyring_Eq.py
+```
+
+
 
 ##
 ### Background
 In literature, people often quote inexact rules like "21 kcal/mol at room temperature" when discussing calculated activation Gibbs free energies. They might even ask for a reference to support these crude rules or ask for values at different conditions. However, it's easy to calculate the reaction time, required temperatures, etc. from the Eyring equation and first/second order kinetics (assuming the reaction is kinetically controlled). So, I created this small program for that purpose.
-
+##
 ### Usage
 
 To use the program, fill in the known values for the equations, and leave the unknown values blank. If the number of filled parameters is sufficient (and not excessive), the \[Calculate\] button will become available. Click it to get the values you left blank. 
