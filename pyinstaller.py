@@ -8,7 +8,7 @@ from Python_Lib.My_Lib_Stock import *
 
 import PyInstaller.__main__
 
-version = "1.2"
+version = "1.3"
 main_py_file = 'Eyring_Eq.py'
 path = 'Pyinstaller_Packing'
 work_path = os.path.join(path, f'temp_{version}')
@@ -16,9 +16,8 @@ output_path = os.path.join(path, version)
 generated_exe_name = f"Eyring Eq {version}.exe"
 icon = r"UI\Eyring_Eq.ico"
 include_all_folder_contents = []
-include_folders = ["UI", "Python_Lib"]
+include_folders = ["UI", "Python_Lib", "Batch"]
 include_files = []
-
 
 PyInstaller.__main__.run([main_py_file,
                           "--icon", icon,
