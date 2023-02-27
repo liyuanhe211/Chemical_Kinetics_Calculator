@@ -65,11 +65,11 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
                                                                    ("conc2", self.conc2_lineEdit),
                                                                    ("conv", self.conversion_lineEdit),
                                                                    ("t", self.total_time_lineEdit)])
-        self.RECALC_MAPPING = {"G":"ΔG≠",
-                               "T":"temp.",
-                               "t":"time",
-                               "conv":"conv.",
-                               "kTST":"kTST"}
+        self.RECALC_MAPPING = {"G": "ΔG≠",
+                               "T": "temp.",
+                               "t": "time",
+                               "conv": "conv.",
+                               "kTST": "kTST"}
 
         connect_once(self.unimolecular_radioButton, self.mode_change)
         connect_once(self.bimolecular_AA_radioButton, self.mode_change)
@@ -77,8 +77,8 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         connect_once(self.bimolecular_A_Cat_radioButton, self.mode_change)
         connect_once(self.reset_all_pushButton, self.reset_all)
         connect_once(self.calculate_pushButton, self.calc)
-        connect_once(self.batch_pushButton,self.batch)
-        connect_once(self.recalc_pushButton,self.recalc)
+        connect_once(self.batch_pushButton, self.batch)
+        connect_once(self.recalc_pushButton, self.recalc)
 
         connect_once(self.conversion_lineEdit, self.check_fill_status)
         connect_once(self.total_time_lineEdit, self.check_fill_status)
@@ -109,7 +109,7 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         self.energy_unit_comboBox_before_change = self.energy_unit_comboBox.currentText()
         self.time_unit_comboBox_before_change = self.time_unit_comboBox.currentText()
 
-        self.last_unknowns = [] # remember which parameters to be recalculated
+        self.last_unknowns = []  # remember which parameters to be recalculated
 
         # This is not a space.
         # This is an unicode blank to tell the program that the kTST is calculated, instead of user input.
@@ -387,12 +387,11 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         calc_allowed = any([set(x) == self.is_None for x in allowed_missing_situations])
         self.calculate_pushButton.setEnabled(calc_allowed)
 
-        if len(self.last_unknowns)==2:
-            recalc_allowed = any([set(x) == set(list(self.is_None)+self.last_unknowns) for x in allowed_missing_situations])
+        if len(self.last_unknowns) == 2:
+            recalc_allowed = any([set(x) == set(list(self.is_None) + self.last_unknowns) for x in allowed_missing_situations])
             self.recalc_pushButton.setEnabled(recalc_allowed)
         else:
             self.recalc_pushButton.setEnabled(False)
-
 
     def calc(self):
         self.last_unknowns = []
@@ -506,16 +505,16 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
                     self.conversion_lineEdit.setText(smart_format_float(conv * 100))
 
         self.last_unknowns = list(set(self.last_unknowns))
-        assert len(self.last_unknowns)==2
-        self.recalc_pushButton.setText("Recalc. "+self.RECALC_MAPPING[self.last_unknowns[0]] + " && " +\
+        assert len(self.last_unknowns) == 2
+        self.recalc_pushButton.setText("Recalc. " + self.RECALC_MAPPING[self.last_unknowns[0]] + " && " +
                                        self.RECALC_MAPPING[self.last_unknowns[1]])
         print("---------------------------------\n\n")
 
     def automation(self,
                    input_data: Dict[str, str or Real],
                    units: Sequence[str],
-                   missing_parameters: Sequence[str] = [],
-                   redirect_sys_output = False):
+                   missing_parameters: Sequence[str] = (),
+                   redirect_sys_output=False):
         """
 
         Args:
@@ -545,7 +544,6 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
             old_stdout = sys.stdout
             sys.stdout = None
 
-
         self.reset_all()
         self.conversion_lineEdit.setText("")
 
@@ -560,13 +558,13 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
 
         # automation test case 有问题
         if not self.calculate_pushButton.isEnabled():
-            print(input_data,units,missing_parameters)
-            for key,value in self.MODE_MAPPING.items():
-                print(key,repr(value.isChecked()))
-            for key,value in self.INPUT_MAPPING.items():
-                print(key,repr(value.text()))
-            print("Energy Unit:",self.energy_unit_comboBox.currentText())
-            print("Time Unit:",self.time_unit_comboBox.currentText())
+            print(input_data, units, missing_parameters)
+            for key, value in self.MODE_MAPPING.items():
+                print(key, repr(value.isChecked()))
+            for key, value in self.INPUT_MAPPING.items():
+                print(key, repr(value.text()))
+            print("Energy Unit:", self.energy_unit_comboBox.currentText())
+            print("Time Unit:", self.time_unit_comboBox.currentText())
             raise Exception("Calculate PushButton not enabled error.")
 
         self.calculate_pushButton.click()
@@ -590,9 +588,9 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
 
     def batch(self):
         opened_xlsxs = get_open_file_UI(self,
-                                       "",
-                                       'xlsx',
-                                       'Select batch input file created by filling the table from Batch_Template.xltx')
+                                        "",
+                                        'xlsx',
+                                        'Select batch input file created by filling the table from Batch_Template.xltx')
         for opened_xlsx in opened_xlsxs:
             self.run_batch(opened_xlsx)
 
@@ -607,12 +605,11 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         """
 
         # build output xlsx
-        xlsx_output = get_unused_filename(filename_class(os.path.realpath(xlsx_input)).replace_append_to("Erying_Eq_Output.xlsx"),
+        xlsx_output = get_unused_filename(filename_class(os.path.realpath(xlsx_input)).replace_append_to("Eyring_Eq_Output.xlsx"),
                                           use_proper_filename=False)
         xlsx_content = read_xlsx(xlsx_input)
         workbook = openpyxl.load_workbook(xlsx_input)
         worksheet = workbook[workbook.sheetnames[0]]
-
 
         HEADER_TO_DICT_KEY = {"Mode (A, AA, AB, Acat)": "mode",
                               "ΔG≠ (selected unit)": "G",
@@ -632,8 +629,7 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         for header in xlsx_content[0]:
             HEADER_TO_DICT_KEY_XLSX_ORDER[header] = HEADER_TO_DICT_KEY[header]
 
-        rets: List[List[str]] = [list(HEADER_TO_DICT_KEY_XLSX_ORDER.keys())]
-        for case_count,test_case in enumerate(xlsx_content[1:]):
+        for case_count, test_case in enumerate(xlsx_content[1:]):
             xlsx_input_dict = {}
             for parameter_count, parameter in enumerate(xlsx_content[0]):
                 xlsx_input_dict[HEADER_TO_DICT_KEY_XLSX_ORDER[parameter]] = test_case[parameter_count]
@@ -649,10 +645,9 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
             ret.insert(HEADER_VALUE_LIST.index("energy_unit"), self.energy_unit_comboBox.currentText())
             ret.insert(HEADER_VALUE_LIST.index("time_unit"), self.time_unit_comboBox.currentText())
 
-            for row_count,data in enumerate(ret):
-                cell = worksheet.cell(row = row_count+1,column = case_count+2,value = data.strip(self.kTST_is_calculated_marker))
+            for row_count, data in enumerate(ret):
+                cell = worksheet.cell(row=row_count + 1, column=case_count + 2, value=data.strip(self.kTST_is_calculated_marker))
                 cell.alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center')
-
 
         workbook.save(xlsx_output)
         open_explorer_and_select(xlsx_output)
