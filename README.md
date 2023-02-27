@@ -76,6 +76,7 @@ $$\frac{1}{[A]} = \frac{1}{[A]_{0}}+kt$$
 **1.3**
  * Support batch automation.
  * Remember the parameter that's calculated last time, and add a button to re-calculate the same parameter.
+ * Bug fix for negative temperatures.
  
 **1.2**
  * Support A+Cat->P+Cat mode.
