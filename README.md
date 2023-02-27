@@ -49,7 +49,7 @@ Or any other valid combination of known/unknown values.
 
 The `Batch/Batch_Template.xltx` file is provided for calculating multiple set of input data.
 
-Fill in the relevant data by using the template file. Then submit the file by clicking the "Batch" pushbutton in the GUI.
+Fill in the relevant data using the Excel template. Then submit the file(s) by clicking the "Batch" pushbutton in the GUI.
 
 The program will run through every column, gather the unknowns, and generates a new file with suffix `.Erying_Eq_Output.xlsx`.
 
