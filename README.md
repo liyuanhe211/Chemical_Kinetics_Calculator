@@ -9,6 +9,7 @@ This is a small educational program that can solve the Eyring Equation and first
 You can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases) for Windows which includes the executable `Eyring Eq X.X.exe` (packed with `pyinstaller`).
 
 Alternatively, if you choose to set up your own environment:
+
 Launch a shell/cmd/PowerShell window from the cloned directory. Run:
 ```
 pip install pipenv
