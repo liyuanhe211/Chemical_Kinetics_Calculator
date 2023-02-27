@@ -4,23 +4,17 @@
 # Done: 冰冰姐的建议：1. A+B->P初始浓度不同时，最好在前台明确提醒一下算的是哪个物质的反应时间。
 # Done: 冰冰姐的建议：2. 强烈建议增加kcal/mol单位
 # Abandon: 冰冰姐的建议：3. 能垒与速率常数可以考虑旁边设一个toggle,因为不可能同时设置这两个参数的
+# Done: 让程序记住上次算的是哪两个参数，比如k和conv。
+#  新增一个按钮，按钮的文本随上次计算的参数变化而变化，比如上次计算的是k和conv，按钮的文本就是Recalculate k & conv，按钮在计算前会清空这两个框
+#  然后要做的就是改一个浓度，点这个按钮；改一个浓度，点这个按钮
+# Done: 支持并测试batch
 
 __author__ = 'LiYuanhe'
 
-import sys
-import os
-import math
-import copy
-import shutil
-import re
-import time
-import random
-import subprocess
 from datetime import datetime
-from collections import OrderedDict
-from typing import Optional
-
+import openpyxl
 from Python_Lib.My_Lib_PyQt6 import *
+from Python_Lib.My_Lib import read_xlsx, write_xlsx
 from Lib import *
 
 if not QtWidgets.QApplication.instance():
@@ -49,14 +43,33 @@ def evaluate_expression(expression: str) -> Optional[float]:
 
 
 class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
+
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)
         self.setMinimumWidth(550)
-        self.setMinimumHeight(336)
+        self.setMinimumHeight(366)
 
         self.k1_UNIT_HTML = "<html><head/><body><p>s<span style=\" vertical-align:super;\">-1</span></p></body></html>"
         self.k2_UNIT_HTML = "<html><head/><body><p>M<span style=\" vertical-align:super;\">-1</span>·s<span style=\" vertical-align:super;\">-1</span></p></body></html>"
+
+        self.MODE_MAPPING = {"AB": self.bimolecular_AB_radioButton,
+                             "AA": self.bimolecular_AA_radioButton,
+                             "Acat": self.bimolecular_A_Cat_radioButton,
+                             "A": self.unimolecular_radioButton}
+        self.INPUT_MAPPING: Dict[str, Qt.QLineEdit] = OrderedDict([("G", self.G_neq_lineEdit),
+                                                                   ("T", self.temp_lineEdit),
+                                                                   ("σ", self.sigma_lineEdit),
+                                                                   ("kTST", self.kTST_lineEdit),
+                                                                   ("conc1", self.conc1_lineEdit),
+                                                                   ("conc2", self.conc2_lineEdit),
+                                                                   ("conv", self.conversion_lineEdit),
+                                                                   ("t", self.total_time_lineEdit)])
+        self.RECALC_MAPPING = {"G":"ΔG≠",
+                               "T":"temp.",
+                               "t":"time",
+                               "conv":"conv.",
+                               "kTST":"kTST"}
 
         connect_once(self.unimolecular_radioButton, self.mode_change)
         connect_once(self.bimolecular_AA_radioButton, self.mode_change)
@@ -64,6 +77,8 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         connect_once(self.bimolecular_A_Cat_radioButton, self.mode_change)
         connect_once(self.reset_all_pushButton, self.reset_all)
         connect_once(self.calculate_pushButton, self.calc)
+        connect_once(self.batch_pushButton,self.batch)
+        connect_once(self.recalc_pushButton,self.recalc)
 
         connect_once(self.conversion_lineEdit, self.check_fill_status)
         connect_once(self.total_time_lineEdit, self.check_fill_status)
@@ -93,6 +108,8 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
 
         self.energy_unit_comboBox_before_change = self.energy_unit_comboBox.currentText()
         self.time_unit_comboBox_before_change = self.time_unit_comboBox.currentText()
+
+        self.last_unknowns = [] # remember which parameters to be recalculated
 
         # This is not a space.
         # This is an unicode blank to tell the program that the kTST is calculated, instead of user input.
@@ -366,10 +383,20 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
                                       ["G", 'conv'],
                                       ["T", 't'],
                                       ["T", 'conv']]
-        allowed = any([set(x) == self.is_None for x in allowed_missing_situations])
-        self.calculate_pushButton.setEnabled(allowed)
+
+        calc_allowed = any([set(x) == self.is_None for x in allowed_missing_situations])
+        self.calculate_pushButton.setEnabled(calc_allowed)
+
+        if len(self.last_unknowns)==2:
+            recalc_allowed = any([set(x) == set(list(self.is_None)+self.last_unknowns) for x in allowed_missing_situations])
+            self.recalc_pushButton.setEnabled(recalc_allowed)
+        else:
+            self.recalc_pushButton.setEnabled(False)
+
 
     def calc(self):
+        self.last_unknowns = []
+
         # 确定各模式的Eyring方程的delta-n, 指定各模式动力学的求解函数
         if self.unimolecular_radioButton.isChecked():
             Δn = 0
@@ -437,6 +464,7 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         if "t" not in self.is_None and 'conv' not in self.is_None:
             kTST = k_from_kinetics(conv, t, c1, c2)
             self.set_kTST_lineEdit(kTST)
+            self.last_unknowns.append("kTST")
 
         if kTST:
             if "G" in self.is_None:  # 知道G不知道T
@@ -445,17 +473,20 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
                 current_energy_unit = self.energy_unit_comboBox.currentText()
                 self.energy_unit_comboBox.setCurrentText("kJ/mol")
                 self.G_neq_lineEdit.setText(smart_format_float(G / 1000, precision=4))
+                self.last_unknowns.append("G")
                 self.energy_unit_comboBox.setCurrentText(current_energy_unit)
 
             elif "T" in self.is_None:  # 知道T不知道G
                 T = solve_for_T(kTST, Δn, σ, G)
                 self.temp_lineEdit.setText(smart_format_float(T - 273.15, scientific_notation_limit=6))
+                self.last_unknowns.append("T")
 
         # 不知道动力学，从kTST算时间、转化率
         if "G" not in self.is_None and "T" not in self.is_None:
             print(f"Calculating rate constant from TST.\n    Δn: {Δn}, σ: {σ}, T: {T} K, ΔG: {G} J/mol.")
             kTST = get_k_TST(Δn, σ, T, G)
             self.set_kTST_lineEdit(kTST)
+            self.last_unknowns.append("kTST")
             if "t" in self.is_None:
                 t = t_from_kinetics(kTST, conv, c1, c2)
 
@@ -463,20 +494,173 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
                 current_time_unit = self.time_unit_comboBox.currentText()
                 self.time_unit_comboBox.setCurrentText("s")
                 self.total_time_lineEdit.setText(smart_format_float(t))
+                self.last_unknowns.append("t")
                 self.time_unit_comboBox.setCurrentText(current_time_unit)
 
             elif 'conv' in self.is_None:
                 conv = conv_from_kinetics(kTST, t, c1, c2)
-                print(conv)
+                self.last_unknowns.append("conv")
                 if conv == 1:
                     self.conversion_lineEdit.setText("~100")
                 else:
                     self.conversion_lineEdit.setText(smart_format_float(conv * 100))
 
+        self.last_unknowns = list(set(self.last_unknowns))
+        assert len(self.last_unknowns)==2
+        self.recalc_pushButton.setText("Recalc. "+self.RECALC_MAPPING[self.last_unknowns[0]] + " && " +\
+                                       self.RECALC_MAPPING[self.last_unknowns[1]])
         print("---------------------------------\n\n")
+
+    def automation(self,
+                   input_data: Dict[str, str or Real],
+                   units: Sequence[str],
+                   missing_parameters: Sequence[str] = [],
+                   redirect_sys_output = False):
+        """
+
+        Args:
+            units: a 2-tuple [energy_unit (kJ/mol, kcal/mol, eV), time_unit (s, min, h, d, year)]
+            input_data: a dict missing the correct parameters for calculation, the unit of the data is the unit used in the GUI
+
+            missing_parameters: This parameter is only used in Verification.py,
+                                Include to calculate and return which parameter, select from the standard key of standard keys
+
+            redirect_sys_output: This is used in verification.py, to suppress excessive output when testing multiple cases
+
+            (standard keys: mode, G, T, kTST, conc1, conc2, conv, t)
+
+            e.g. missing kTST and t:    {
+                                            "mode": "AB",
+                                            "T": 25,
+                                            "conc1": 0.5,
+                                            "conc2": 1.2,
+                                            "G": 15,
+                                            "conv": 15
+                                        },
+        Returns:
+            The value of the missed parameters
+
+        """
+        if redirect_sys_output:
+            old_stdout = sys.stdout
+            sys.stdout = None
+
+
+        self.reset_all()
+        self.conversion_lineEdit.setText("")
+
+        self.energy_unit_comboBox.setCurrentText(units[0])
+        self.time_unit_comboBox.setCurrentText(units[1])
+
+        for key in input_data:
+            if key == 'mode':
+                self.MODE_MAPPING[input_data[key]].click()
+            else:
+                self.INPUT_MAPPING[key].setText(str(input_data[key]))
+
+        # automation test case 有问题
+        if not self.calculate_pushButton.isEnabled():
+            print(input_data,units,missing_parameters)
+            for key,value in self.MODE_MAPPING.items():
+                print(key,repr(value.isChecked()))
+            for key,value in self.INPUT_MAPPING.items():
+                print(key,repr(value.text()))
+            print("Energy Unit:",self.energy_unit_comboBox.currentText())
+            print("Time Unit:",self.time_unit_comboBox.currentText())
+            raise Exception("Calculate PushButton not enabled error.")
+
+        self.calculate_pushButton.click()
+        Application.processEvents()
+
+        ret = []
+        if missing_parameters:
+            for i in missing_parameters:
+                ret.append(self.INPUT_MAPPING[i].text())
+
+        if redirect_sys_output:
+            sys.stdout = old_stdout
+
+        return ret
+
+    def recalc(self):
+        for i in self.last_unknowns:
+            self.INPUT_MAPPING[i].setText("")
+        if self.calculate_pushButton.isEnabled():
+            self.calculate_pushButton.click()
+
+    def batch(self):
+        opened_xlsxs = get_open_file_UI(self,
+                                       "",
+                                       'xlsx',
+                                       'Select batch input file created by filling the table from Batch_Template.xltx')
+        for opened_xlsx in opened_xlsxs:
+            self.run_batch(opened_xlsx)
+
+    def run_batch(self, xlsx_input):
+        """
+        Run batch calculation from an xlsx input
+        Args:
+            xlsx_input: an xlsx input file created by filling Batch/Batch_Template.xltx
+
+        Returns:
+
+        """
+
+        # build output xlsx
+        xlsx_output = get_unused_filename(filename_class(os.path.realpath(xlsx_input)).replace_append_to("Erying_Eq_Output.xlsx"),
+                                          use_proper_filename=False)
+        xlsx_content = read_xlsx(xlsx_input)
+        workbook = openpyxl.load_workbook(xlsx_input)
+        worksheet = workbook[workbook.sheetnames[0]]
+
+
+        HEADER_TO_DICT_KEY = {"Mode (A, AA, AB, Acat)": "mode",
+                              "ΔG≠ (selected unit)": "G",
+                              "ΔG≠ unit\n(kJ/mol, kcal/mol, eV)": "energy_unit",
+                              "Temperature (°C)": "T",
+                              "σ (default 1)": "σ",
+                              "kTST (s-1 or M-1·s-1)": "kTST",
+                              "Conc. 1 (mol/L)": "conc1",
+                              "Conc. 2 (mol/L)": "conc2",
+                              "Conversion (%)": "conv",
+                              "Reaction time (selected unit)": "t",
+                              "Reaction time unit\n(s, min, h, d, year)": "time_unit"}
+
+        xlsx_content = transpose_2d_list(xlsx_content)  # 横纵交换，一行一个case
+        HEADER_TO_DICT_KEY_XLSX_ORDER = OrderedDict()
+        # reorder the header so it's in the same order as the input xlsx
+        for header in xlsx_content[0]:
+            HEADER_TO_DICT_KEY_XLSX_ORDER[header] = HEADER_TO_DICT_KEY[header]
+
+        rets: List[List[str]] = [list(HEADER_TO_DICT_KEY_XLSX_ORDER.keys())]
+        for case_count,test_case in enumerate(xlsx_content[1:]):
+            xlsx_input_dict = {}
+            for parameter_count, parameter in enumerate(xlsx_content[0]):
+                xlsx_input_dict[HEADER_TO_DICT_KEY_XLSX_ORDER[parameter]] = test_case[parameter_count]
+            units = [xlsx_input_dict.pop('energy_unit'), xlsx_input_dict.pop('time_unit')]
+
+            self.automation(xlsx_input_dict, units)
+            Application.processEvents()
+
+            ret = [xlsx_input_dict.pop('mode')]
+            for key in xlsx_input_dict.keys():
+                ret.append(self.INPUT_MAPPING[key].text())
+            HEADER_VALUE_LIST = list(HEADER_TO_DICT_KEY_XLSX_ORDER.values())
+            ret.insert(HEADER_VALUE_LIST.index("energy_unit"), self.energy_unit_comboBox.currentText())
+            ret.insert(HEADER_VALUE_LIST.index("time_unit"), self.time_unit_comboBox.currentText())
+
+            for row_count,data in enumerate(ret):
+                cell = worksheet.cell(row = row_count+1,column = case_count+2,value = data.strip(self.kTST_is_calculated_marker))
+                cell.alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center')
+
+
+        workbook.save(xlsx_output)
+        open_explorer_and_select(xlsx_output)
+        print(f"Batch processing of {xlsx_input} finished.")
 
 
 if __name__ == '__main__':
     my_Qt_Program = myWidget()
     my_Qt_Program.show()
+
     sys.exit(Application.exec())

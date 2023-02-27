@@ -15,11 +15,15 @@ import random
 import subprocess
 from collections import OrderedDict
 
+import pathlib
+
+parent_path = str(pathlib.Path(__file__).parent.parent.resolve())
+sys.path.insert(0, parent_path)
+os.chdir(parent_path)
+
 from Python_Lib.My_Lib_PyQt6 import *
-from Python_Lib.My_Lib_Stock import *
 import Eyring_Eq
 from numbers import Real
-from typing import Dict, Union, List, Sequence
 
 test_cases = [
     {
@@ -85,7 +89,7 @@ test_cases = [
         "T": 97,
         "G": 118.7,
         "kTST": 0.000134,
-        "t": 8*3600,
+        "t": 8 * 3600,
         "conv": 98
     },
     {
@@ -101,7 +105,7 @@ test_cases = [
         "T": 90,
         "G": 105.725,
         "kTST": 0.00462098120373296872944821414305,
-        "t": 15*60,
+        "t": 15 * 60,
         "conv": 98.5,
     },
     {
@@ -114,73 +118,14 @@ test_cases = [
     }
 ]
 
+# for name in ["mode", "T", "conc1", "conc2", "G", "kTST", "t", "conv"]:
+#     for case in test_cases:
+#         print(case.get(name,""),end=';')
+#     print()
 
 
-old_stdout = sys.stdout
-sys.stdout=None
 app = Eyring_Eq.Application
-gui = Eyring_Eq.myWidget()
-sys.stdout=old_stdout
-
-def run_test_case(input_data: Dict[str, str or Real],
-                  missing_parameters: Sequence[str],
-                  units: Sequence[str]):
-    """
-
-    Args:
-        units: [energy_unit (kJ/mol, kcal/mol, eV), time_unit (s, min, h, d, year)]
-        missing_parameters: to calculate and return which parameter
-        input_data: a dict missing the correct parameters for calculation
-        standard keys: mode, G, T, kTST, conc1, conc2, conv, t
-        e.g. missing kTST and t:        {
-                                        "mode": "AB",
-                                        "T": 298,
-                                        "conc1": 0.5,
-                                        "conc2": 1.2,
-                                        "G": 15,
-                                        "conv": 15
-                                    },
-    Returns:
-        The value of the missed parameters
-
-    """
-
-    global app, gui
-
-
-    MODE_MAPPING: Dict[str, Qt.QRadioButton] = {"AB": gui.bimolecular_AB_radioButton,
-                                                "AA": gui.bimolecular_AA_radioButton,
-                                                "Acat": gui.bimolecular_A_Cat_radioButton,
-                                                "A": gui.unimolecular_radioButton, }
-    INPUT_MAPPING: Dict[str, Qt.QLineEdit] = {"G": gui.G_neq_lineEdit,
-                                              "T": gui.temp_lineEdit,
-                                              "kTST": gui.kTST_lineEdit,
-                                              "conc1": gui.conc1_lineEdit,
-                                              "conc2": gui.conc2_lineEdit,
-                                              "conv": gui.conversion_lineEdit,
-                                              "t": gui.total_time_lineEdit}
-    gui.energy_unit_comboBox.setCurrentText(units[0])
-    gui.time_unit_comboBox.setCurrentText(units[1])
-    old_stdout = sys.stdout
-    sys.stdout=None
-
-    for key in input_data:
-        if key == 'mode':
-            MODE_MAPPING[input_data[key]].click()
-        else:
-            INPUT_MAPPING[key].setText(str(input_data[key]))
-    for key in missing_parameters:
-        INPUT_MAPPING[key].setText("")
-
-    assert gui.calculate_pushButton.isEnabled()
-    gui.calculate_pushButton.click()
-    app.processEvents()
-    ret = []
-    for i in missing_parameters:
-        ret.append(INPUT_MAPPING[i].text())
-
-    sys.stdout = old_stdout
-    return ret
+self = Eyring_Eq.myWidget()
 
 
 def run_unknown_combinations(test_case: Dict[str, str or Real]):
@@ -202,40 +147,40 @@ def run_unknown_combinations(test_case: Dict[str, str or Real]):
 
                 test_input = copy.deepcopy(test_case)
                 if energy_unit == 'kcal/mol':
-                    test_input['G']/=kcal__kJ
-                elif energy_unit=='eV':
-                    test_input['G']/=eV__kJ
-                if time_unit=='min':
-                    test_input['t']/=60
-                elif time_unit=='h':
-                    test_input['t']/=3600
-                elif time_unit=='d':
-                    test_input['t']/=86400
-                elif time_unit=='year':
-                    test_input['t']/=(86400*365)
+                    test_input['G'] /= kcal__kJ
+                elif energy_unit == 'eV':
+                    test_input['G'] /= eV__kJ
+                if time_unit == 'min':
+                    test_input['t'] /= 60
+                elif time_unit == 'h':
+                    test_input['t'] /= 3600
+                elif time_unit == 'd':
+                    test_input['t'] /= 86400
+                elif time_unit == 'year':
+                    test_input['t'] /= (86400 * 365)
 
                 correct_answers = []
                 for unknown in unknowns:
                     correct_answers.append(test_input.pop(unknown))
-                given_answer = run_test_case(test_input,unknowns,(energy_unit,time_unit))
+                given_answer = self.automation(test_input, (energy_unit, time_unit), unknowns, redirect_sys_output=True)
 
-                def acceptable(ref:Real, answer:str,marker):
+                def acceptable(ref: Real, answer: str, marker):
                     # This is not a space.
                     # This is an unicode blank to tell the program that the kTST is calculated, instead of user input.
                     kTST_is_calculated_marker = "⠀"
 
                     answer = answer.strip(kTST_is_calculated_marker)
-                    if answer in [smart_format_float(ref),smart_format_float(ref,4),smart_format_float(ref,3,6)]:
+                    if answer in [smart_format_float(ref), smart_format_float(ref, 4), smart_format_float(ref, 3, 6)]:
                         return ""
-                    answer = float(answer.replace(' × 10^','E'))
-                    if 0.98<ref/answer<1.02:
+                    answer = float(answer.replace(' × 10^', 'E'))
+                    if 0.98 < ref / answer < 1.02:
                         return ""
                     return f"{marker}: {ref}  {answer}"
 
-                compare_1 = acceptable(correct_answers[0],given_answer[0],unknowns[0])
-                compare_2 = acceptable(correct_answers[1],given_answer[1],unknowns[1])
+                compare_1 = acceptable(correct_answers[0], given_answer[0], unknowns[0])
+                compare_2 = acceptable(correct_answers[1], given_answer[1], unknowns[1])
                 if compare_1 or compare_2:
-                    print(compare_1,"|",compare_2)
+                    print(compare_1, "|", compare_2)
 
     print("Finished.")
 

@@ -97,12 +97,12 @@ def get_matplotlib_DPI_setting(Windows_DPI_ratio):
 
 
 def get_open_directories():
-    if not Qt.QApplication.instance():
-        Qt.QApplication(sys.argv)
+    if not QApplication.instance():
+        QApplication(sys.argv)
 
-    file_dialog = Qt.QFileDialog()
-    file_dialog.setFileMode(Qt.QFileDialog.DirectoryOnly)
-    file_dialog.setOption(Qt.QFileDialog.DontUseNativeDialog, True)
+    file_dialog = QtWidgets.QFileDialog()
+    file_dialog.setFileMode(QtWidgets.QFileDialog.DirectoryOnly)
+    file_dialog.setOption(QtWidgets.QFileDialog.DontUseNativeDialog, True)
     file_view = file_dialog.findChild(Qt.QListView, 'listView')
 
     # to make it possible to select multiple directories:
@@ -264,8 +264,8 @@ def alert_UI(message="", title="", parent=None):
     elif not isinstance(message, str) and isinstance(title, str) and isinstance(parent, str):
         parent, message, title = message, title, parent
     print(message)
-    if not Qt.QApplication.instance():
-        Qt.QApplication(sys.argv)
+    if not QApplication.instance():
+        QApplication(sys.argv)
     if not title:
         title = message
     Qt.QMessageBox.critical(parent, title, message)
@@ -276,8 +276,8 @@ def warning_UI(message="", parent=None):
     if not isinstance(message, str):
         message, parent = parent, message
     print(message)
-    if not Qt.QApplication.instance():
-        Qt.QApplication(sys.argv)
+    if not QApplication.instance():
+        QApplication(sys.argv)
     Qt.QMessageBox.warning(parent, message, message)
 
 
@@ -287,14 +287,14 @@ def information_UI(message="", parent=None):
     if not isinstance(message, str):
         message, parent = parent, message
     print(message)
-    if not Qt.QApplication.instance():
-        Qt.QApplication(sys.argv)
+    if not QApplication.instance():
+        QApplication(sys.argv)
     Qt.QMessageBox.information(parent, message, message)
 
 
 def wait_confirmation_UI(parent=None, message=""):
-    if not Qt.QApplication.instance():
-        Qt.QApplication(sys.argv)
+    if not QApplication.instance():
+        QApplication(sys.argv)
     button = Qt.QMessageBox.warning(parent, message, message, Qt.QMessageBox.Ok | Qt.QMessageBox.Cancel)
     if button == Qt.QMessageBox.Ok:
         return True
@@ -315,8 +315,8 @@ def get_open_file_UI(parent, start_path: str, allowed_appendix, title="No Title"
     :return: a list of files if not single, a single filepath if single
     """
 
-    if not Qt.QApplication.instance():
-        Qt.QApplication(sys.argv)
+    if not QApplication.instance():
+        QApplication(sys.argv)
 
     if isinstance(allowed_appendix, str):  # single str
         allowed_appendix = [[allowed_appendix]]
@@ -326,11 +326,11 @@ def get_open_file_UI(parent, start_path: str, allowed_appendix, title="No Title"
     filename_filter_string = build_fileDialog_filter(allowed_appendix, tags)
 
     if single:
-        ret = Qt.QFileDialog.getOpenFileName(parent, title, start_path, filename_filter_string)
+        ret = QtWidgets.QFileDialog.getOpenFileName(parent, title, start_path, filename_filter_string)
         if ret:  # 上面返回 ('E:/My_Program/Python_Lib/elements_dict.txt', '(*.txt)')
             ret = ret[0]
     else:
-        ret = Qt.QFileDialog.getOpenFileNames(parent, title, start_path, filename_filter_string)
+        ret = QtWidgets.QFileDialog.getOpenFileNames(parent, title, start_path, filename_filter_string)
         if ret:  # 上面返回 (['E:/My_Program/Python_Lib/elements_dict.txt'], '(*.txt)')
             ret = ret[0]
 
@@ -340,7 +340,7 @@ def get_open_file_UI(parent, start_path: str, allowed_appendix, title="No Title"
 def show_pixmap(image_filename, graphicsView_object):
     # must call widget.show() holding the graphicsView, otherwise the View.size() will get a wrong (100,30) value
     if os.path.isfile(image_filename):
-        pixmap = Qt.QPixmap()
+        pixmap = QtGui.QPixmap()
         pixmap.load(image_filename)
 
         print(graphicsView_object.size())
@@ -348,10 +348,10 @@ def show_pixmap(image_filename, graphicsView_object):
         if pixmap.width() > graphicsView_object.width() or pixmap.height() > graphicsView_object.height():
             pixmap = pixmap.scaled(graphicsView_object.size(), Qt.Qt.KeepAspectRatio, Qt.Qt.SmoothTransformation)
     else:
-        pixmap = Qt.QPixmap()
+        pixmap = QtGui.QPixmap()
 
-    graphicsPixmapItem = Qt.QGraphicsPixmapItem(pixmap)
-    graphicsScene = Qt.QGraphicsScene()
+    graphicsPixmapItem = QtWidgets.QGraphicsPixmapItem(pixmap)
+    graphicsScene = QtWidgets.QGraphicsScene()
     graphicsScene.addItem(graphicsPixmapItem)
     graphicsView_object.setScene(graphicsScene)
 
@@ -411,8 +411,8 @@ def pyqt_ui_compile(filename):
 
 
 def wait_messageBox(message, title="Please Wait..."):
-    if not Qt.QApplication.instance():
-        Qt.QApplication(sys.argv)
+    if not QApplication.instance():
+        QApplication(sys.argv)
 
     message_box = Qt.QMessageBox()
     message_box.setWindowTitle(title)

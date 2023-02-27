@@ -1,16 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'LiYuanhe'
 
-import sys
-import os
-import math
-import copy
-import shutil
-import re
-import time
-import random
-import subprocess
-from collections import OrderedDict
 from Python_Lib.My_Lib_Stock import *
 from scipy.optimize import fsolve
 import numpy as np

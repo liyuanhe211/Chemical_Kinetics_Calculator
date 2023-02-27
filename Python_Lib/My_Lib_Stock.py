@@ -9,9 +9,10 @@ import shutil
 import re
 import time
 import random
+import subprocess
 from collections import OrderedDict
 import traceback
-from typing import Optional, Union, Sequence
+from typing import Optional, Union, Sequence, Dict, List, Tuple
 
 # ALL Numbers in SI if not mentioned
 R = 8.3144648

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>620</width>
-    <height>402</height>
+    <height>415</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -467,52 +467,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="5" colspan="4">
-      <widget class="QPushButton" name="calculate_pushButton">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>10</pointsize>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Calculate</string>
-       </property>
-       <property name="shortcut">
-        <string>Ctrl+Shift+C</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0" colspan="4">
-      <widget class="QPushButton" name="reset_all_pushButton">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>10</pointsize>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Reset All</string>
-       </property>
-       <property name="shortcut">
-        <string>Ctrl+Shift+R</string>
        </property>
       </widget>
      </item>
@@ -1072,6 +1026,109 @@
        </item>
       </widget>
      </item>
+     <item row="7" column="5" colspan="4">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QPushButton" name="calculate_pushButton">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Calculate</string>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+Shift+C</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="recalc_pushButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Recalculate</string>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+Shift+V</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="7" column="0" colspan="4">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="reset_all_pushButton">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Reset All</string>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+Shift+R</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="batch_pushButton">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Batch</string>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+Shift+R</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
    <item>
@@ -1126,12 +1183,13 @@
     <widget class="QLabel" name="status_label_5">
      <property name="font">
       <font>
+       <family>Arial</family>
        <pointsize>10</pointsize>
        <bold>false</bold>
       </font>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shortcut: Reset - [Ctrl+Shift+R], Calculate - [Ctrl+Shift+C]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shortcut: [Reset All] - Ctrl+Shift+R, [Calculate] - Ctrl+Shift+C, [Recalculate] - Ctrl+Shift+V&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -1139,25 +1197,27 @@
  </widget>
  <tabstops>
   <tabstop>G_neq_lineEdit</tabstop>
+  <tabstop>energy_unit_comboBox</tabstop>
   <tabstop>temp_lineEdit</tabstop>
+  <tabstop>sigma_lineEdit</tabstop>
   <tabstop>kTST_lineEdit</tabstop>
   <tabstop>conc1_lineEdit</tabstop>
   <tabstop>conc2_lineEdit</tabstop>
   <tabstop>conversion_lineEdit</tabstop>
   <tabstop>total_time_lineEdit</tabstop>
-  <tabstop>calculate_pushButton</tabstop>
-  <tabstop>reset_all_pushButton</tabstop>
-  <tabstop>sigma_lineEdit</tabstop>
-  <tabstop>energy_unit_comboBox</tabstop>
   <tabstop>time_unit_comboBox</tabstop>
-  <tabstop>clear_G_pushButton</tabstop>
-  <tabstop>clear_T_pushButton</tabstop>
-  <tabstop>clear_k_pushButton</tabstop>
-  <tabstop>clear_conc1_pushButton</tabstop>
+  <tabstop>calculate_pushButton</tabstop>
+  <tabstop>recalc_pushButton</tabstop>
+  <tabstop>reset_all_pushButton</tabstop>
+  <tabstop>batch_pushButton</tabstop>
   <tabstop>clear_conc2_pushButton</tabstop>
   <tabstop>clear_conv_pushButton</tabstop>
   <tabstop>clear_t_pushButton</tabstop>
   <tabstop>clear_sigma_pushButton</tabstop>
+  <tabstop>clear_G_pushButton</tabstop>
+  <tabstop>clear_T_pushButton</tabstop>
+  <tabstop>clear_k_pushButton</tabstop>
+  <tabstop>clear_conc1_pushButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>
