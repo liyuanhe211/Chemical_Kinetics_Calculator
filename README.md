@@ -43,6 +43,18 @@ For a reaction with 120 kJ/mol activation Gibbs free energy (note that you do ne
 <p align="center"><img src="https://user-images.githubusercontent.com/18537705/194801142-e3cb8fa9-c2e2-4045-9eff-736dda17f7a1.png" width="80%" height="80%" align="center"></img></p>
 
 Or any other valid combination of known/unknown values.
+
+##
+### Batch operation
+
+The `Batch/Batch_Template.xltx` file is provided for calculating multiple set of input data.
+
+Fill in the relevant data by using the template file. Then submit the file by clicking the "Batch" pushbutton in the GUI.
+
+The program will run through every column, gather the unknowns, and generates a new file with suffix `.Erying_Eq_Output.xlsx`.
+
+See examples in the `Batch` folder.
+
 ##
 ### Citation
 I believe the Eyring equation and the first/second order kinetics are old enough and well-known enough to not require citation. However, if you really need to cite this program, you can use the Zenodo DOI: [![DOI](https://zenodo.org/badge/548741869.svg)](https://zenodo.org/badge/latestdoi/548741869).
