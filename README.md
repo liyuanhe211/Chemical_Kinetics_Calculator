@@ -1,7 +1,7 @@
 # Eyring Equation and Chemical Kinetics Calculator
 [![DOI](https://zenodo.org/badge/548741869.svg)](https://zenodo.org/badge/latestdoi/548741869)
 
-This is a small educational program that can solve the Eyring Equation and first/second order kinetics.
+A simple program to solve the Eyring Equation and first/second order kinetics.
 
 ##
 ### Launch
