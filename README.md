@@ -6,7 +6,7 @@ A simple program to solve the Eyring Equation and first/second order kinetics.
 ##
 ### Launch
 
-You can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases) for Windows which includes the executable `Eyring Eq X.X.exe` (packed with `pyinstaller`).
+You can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases) for Windows 10/11 which includes the executable `Eyring Eq X.X.exe`.
 
 Alternatively, if you choose to set up your own environment:
 
