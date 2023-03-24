@@ -22,7 +22,7 @@ pipenv run python Eyring_Eq.py
 
 ##
 ### Background
-In literature, people often quote inexact rules like "21 kcal/mol at room temperature" when discussing calculated activation Gibbs free energies. They might even ask for a reference to support these crude rules or ask for values at different conditions. However, it's easy to calculate the reaction time, required temperatures, etc. from the Eyring equation and first/second order kinetics (assuming the reaction is kinetically controlled). So, I created this small program for that purpose.
+In literature, people often quote inexact rules like "21 kcal/mol at room temperature" when discussing calculated activation Gibbs free energies. They might even ask for references to support these crude rules or ask for values at different conditions, which are difficult to find for the exact condition you need. In contrast, based on Eyring equation and first/second order kinetics (assuming the reaction is kinetically controlled), it's easy to calculate the reaction time, required temperatures, etc, exactly to our need. So, I created this small program for that purpose.
 ##
 ### Usage
 
