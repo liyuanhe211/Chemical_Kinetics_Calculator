@@ -10,7 +10,7 @@ You can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases) 
 
 Alternatively, if you choose to set up your own environment:
 
-Launch a shell/cmd/PowerShell window from the cloned directory. Run:
+Get a Python environment (tested on Python 3.9). Launch a shell/cmd/PowerShell window from the cloned directory. Run:
 ```
 pip install pipenv
 mkdir .venv
