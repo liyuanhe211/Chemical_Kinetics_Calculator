@@ -3,6 +3,8 @@
 
 A simple program to solve the Eyring Equation and first/second order kinetics.
 
+[Download](https://github.com/liyuanhe211/Eyring_Eq/releases)
+
 ##
 ### Launch
 
