@@ -3,7 +3,7 @@
 
 A simple program to solve the Eyring Equation and first/second order kinetics.
 
-[Download](https://github.com/liyuanhe211/Eyring_Eq/releases)
+[Download](https://github.com/liyuanhe211/Chemical_Kinetics_Calculator/releases/download/1.3/Chemical.Kinetics.Calculator.1.3.zip)
 
 ##
 ### Launch
