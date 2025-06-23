@@ -37,7 +37,7 @@ get_k_TST_vectorize = np.vectorize(get_k_TST)
 
 def solve_equation(func, initial_guess):
     root = fsolve(func, initial_guess)
-    print("Original root:", root)
+    print("Raw root from equation solver:", root,"\n")
     ret = []
     for i in root:
         if np.isclose(func(i), 0.):
@@ -83,8 +83,8 @@ def first_order_reaction_time(k_TST, conv):
     half_life_count = math.log((1 - conv), 1 / 2)
     half_life = math.log(2) / k_TST
     ret = half_life_count * half_life
-    print(f"Calculate time from first order kinetics.\n"
-          f"    Rate constant: {k_TST} s^-1, conversion: {conv}. Answer: {ret} s.")
+    print(f"Calculating time from first order kinetics.\n"
+          f"    Rate constant: {k_TST} s^-1, conversion: {conv}. Answer: {ret} s.\n")
     return ret
 
 
@@ -95,7 +95,7 @@ def first_order_conversion(k_TST, rxn_time):
         ret = 1
     else:
         ret = 1 - 1 / 2 ** half_life_count
-    print(f"Calculate conv from first order kinetics.\n"
+    print(f"Calculating conv from first order kinetics.\n"
           f"    Rate constant: {k_TST} s^-1, time: {rxn_time} s. Answer: {ret}.")
     return ret
 
@@ -104,7 +104,7 @@ def first_order_k_TST(conv, rxn_time):
     half_life_count = math.log((1 - conv), 1 / 2)
     half_life = rxn_time / half_life_count
     ret = math.log(2) / half_life
-    print(f"Calculate k from first order kinetics.\n"
+    print(f"Calculating k from first order kinetics.\n"
           f"    Conversion: {conv}, time: {rxn_time} s. Answer: {ret} s^-1.")
     return ret
 
@@ -117,7 +117,7 @@ def second_order_reaction_time_A_plus_A(k_TST, conv, conc):
 
     target_conc = conc * (1 - conv)
     ret = (1 / target_conc - 1 / conc) / k_TST
-    print(f"Calculate time from A+A second order kinetics.\n"
+    print(f"Calculating time from A+A second order kinetics.\n"
           f"    Rate constant: {k_TST} m^3·mol^-1·s^-1, conversion: {conv} s, concentration: {conc} mol/m^3. Answer: {ret} s.")
     return ret
 
@@ -129,7 +129,7 @@ def second_order_conv_A_plus_A(k_TST, rxn_time, conc):
 
     end_conc = 1 / (k_TST * rxn_time + 1 / conc)
     conv = 1 - end_conc / conc
-    print(f"Calculate conv from second order kinetics.\n"
+    print(f"Calculating conv from second order kinetics.\n"
           f"    Rate constant: {k_TST} m^3·mol^-1·s^-1, time: {rxn_time} s, concentration: {conc} mol/m^3. Answer: {conv}.")
     return conv
 
@@ -143,7 +143,7 @@ def second_order_k_TST_A_plus_A(conv, rxn_time, conc):
     A = conc * (1 - conv)
     A0 = conc
     ret = (1 / A - 1 / A0) / rxn_time
-    print(f"Calculate k from A+A second order kinetics.\n"
+    print(f"Calculating k from A+A second order kinetics.\n"
           f"    Conversion: {conv}, time: {rxn_time} s, concentration: {conc} mol/m^3. Answer: {ret} m3·mol-1·s-1.")
     return ret
 
@@ -156,7 +156,7 @@ def second_order_reaction_time_A_plus_B(k_TST, conv, conc1, conc2):
     A, B = A0 - A0 * conv, B0 - A0 * conv
     ret = (math.log(A / B) - math.log(A0 / B0)) / k_TST / (A0 - B0)
     print(
-        f"Calculate time from A+B second order kinetics.\n"
+        f"Calculating time from A+B second order kinetics.\n"
         f"    Rate constant: {k_TST} m^3·mol^-1·s^-1, conversion: {conv} s, concentrations: {conc1}, {conc2} mol/m^3. Answer: {ret} s.")
 
     return ret
@@ -173,7 +173,7 @@ def second_order_conv_A_plus_B(k_TST, rxn_time, conc1, conc2):
     after_exp = math.exp(left)  # (A0-x)/(B0-x)
     x = (after_exp * B0 - A0) / (after_exp - 1)
     conv = x / A0
-    print(f"Calculate conv from second order kinetics.\n"
+    print(f"Calculating conv from second order kinetics.\n"
           f"    Rate constant: {k_TST} m^3·mol^-1·s^-1, time: {rxn_time} s, concentrations: {conc1}, {conc2} mol/m^3. Answer: {conv}.")
     return conv
 
@@ -189,7 +189,7 @@ def second_order_k_TST_A_plus_B(conv, rxn_time, conc1, conc2):
     A = A0 - A0 * conv
     B = B0 - A0 * conv
     ret = (math.log(A / B) - math.log(A0 / B0)) / rxn_time / (A0 - B0)
-    print(f"Calculate k from A+B second order kinetics.\n"
+    print(f"Calculating k from A+B second order kinetics.\n"
           f"    Conversion: {conv}, time: {rxn_time} s, concentrations: {conc1}, {conc2} mol/m^3. Answer: {ret} m3·mol-1·s-1")
     return ret
 

@@ -9,6 +9,7 @@ pyqt6 = "~=6.4.2"
 pyinstaller = "*"
 pyexcel-xlsx = "*"
 xlsxwriter = "*"
+pipfile = "*"
 
 [dev-packages]
 pyinstaller = "*"

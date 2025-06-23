@@ -11,6 +11,7 @@
 
 __author__ = 'LiYuanhe'
 
+import copy
 from datetime import datetime
 import openpyxl
 from Python_Lib.My_Lib_PyQt6 import *
@@ -129,7 +130,7 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         self.check_fill_status()
         self.clear_kTST()
         if self.sender() == self.unimolecular_radioButton:
-            print("Unimolecular Mode")
+            print("[Unimolecular Mode]\n")
             self.conc1_lineEdit.hide()
             self.conc2_lineEdit.hide()
             self.conc1_label.hide()
@@ -145,7 +146,7 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
             self.kTST_unit_label.setText(self.k1_UNIT_HTML)
 
         elif self.sender() == self.bimolecular_AA_radioButton:
-            print("A+A mode")
+            print("[A+A mode]\n")
             self.conc1_lineEdit.show()
             self.conc2_lineEdit.hide()
             self.conc1_label.show()
@@ -161,7 +162,7 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
             self.kTST_unit_label.setText(self.k2_UNIT_HTML)
 
         elif self.sender() == self.bimolecular_AB_radioButton:
-            print("A+B mode")
+            print("[A+B mode]\n")
             self.conc1_lineEdit.show()
             self.conc2_lineEdit.show()
             self.conc1_label.show()
@@ -176,7 +177,7 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
             self.conc2_label.setText("Conc. B")
 
         elif self.sender() == self.bimolecular_A_Cat_radioButton:
-            print("A+Cat mode")
+            print("[A+Cat mode]\n")
             self.conc1_lineEdit.hide()
             self.conc2_lineEdit.show()
             self.conc1_label.hide()
@@ -207,20 +208,20 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
             self.kTST_lineEdit.setText("")
 
     def smart_display_total_time(self):
-        if self.data["t"] and self.data["t"] > 60:
-            self.total_time_display_label.setText("= " + smart_print_time(self.data["t"]))
+        if self.form_inputs["t"] and self.form_inputs["t"] > 60:
+            self.total_time_display_label.setText("= " + smart_print_time(self.form_inputs["t"]))
         else:
             self.total_time_display_label.setText("")
 
     def G_neq_unit_changed(self, energy_unit):
-        if self.data['G'] is None:
+        if self.form_inputs['G'] is None:
             ret_lineEdit_content = ""
         elif energy_unit == 'kJ/mol':
-            ret_lineEdit_content = self.data['G'] / 1000
+            ret_lineEdit_content = self.form_inputs['G'] / 1000
         elif energy_unit == "kcal/mol":
-            ret_lineEdit_content = self.data['G'] / 1000 / kcal__kJ
+            ret_lineEdit_content = self.form_inputs['G'] / 1000 / kcal__kJ
         elif energy_unit == "eV":
-            ret_lineEdit_content = self.data['G'] / 1000 / eV__kJ
+            ret_lineEdit_content = self.form_inputs['G'] / 1000 / eV__kJ
         else:
             raise Exception("ComboBox Error")
 
@@ -235,18 +236,18 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         self.energy_unit_comboBox_before_change = energy_unit
 
     def time_unit_changed(self, t_unit):
-        if self.data['t'] is None:
+        if self.form_inputs['t'] is None:
             ret_lineEdit_content = ""
         elif t_unit == 's':
-            ret_lineEdit_content = self.data['t']
+            ret_lineEdit_content = self.form_inputs['t']
         elif t_unit == 'min':
-            ret_lineEdit_content = self.data['t'] / 60
+            ret_lineEdit_content = self.form_inputs['t'] / 60
         elif t_unit == 'h':
-            ret_lineEdit_content = self.data['t'] / 3600
+            ret_lineEdit_content = self.form_inputs['t'] / 3600
         elif t_unit == 'd':
-            ret_lineEdit_content = self.data['t'] / 86400
+            ret_lineEdit_content = self.form_inputs['t'] / 86400
         elif t_unit == 'year':
-            ret_lineEdit_content = self.data['t'] / 86400 / 365
+            ret_lineEdit_content = self.form_inputs['t'] / 86400 / 365
         else:
             raise Exception("ComboBox Error")
 
@@ -277,103 +278,103 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         self.conc2_lineEdit.setStyleSheet("")
         self.conversion_lineEdit.setStyleSheet("")
 
-        if self.data['G'] is not None and self.data['G'] <= 0:
+        if self.form_inputs['G'] is not None and self.form_inputs['G'] <= 0:
             self.G_neq_lineEdit.setStyleSheet("background-color: rgb(255, 219, 219);")
-            self.data['G'] = None
+            self.form_inputs['G'] = None
 
-        if self.data['t'] is not None and self.data['t'] <= 0:
+        if self.form_inputs['t'] is not None and self.form_inputs['t'] <= 0:
             self.total_time_lineEdit.setStyleSheet("background-color: rgb(255, 219, 219);")
-            self.data['t'] = None
+            self.form_inputs['t'] = None
 
-        if self.data['T'] is not None and self.data['T'] <= 1:
+        if self.form_inputs['T'] is not None and self.form_inputs['T'] <= 1:
             self.temp_lineEdit.setStyleSheet("background-color: rgb(255, 219, 219);")
-            self.data['T'] = None
+            self.form_inputs['T'] = None
 
-        if self.data['c1'] is not None and self.data['c1'] <= 0:
+        if self.form_inputs['c1'] is not None and self.form_inputs['c1'] <= 0:
             self.conc1_lineEdit.setStyleSheet("background-color: rgb(255, 219, 219);")
-            self.data['c1'] = None
+            self.form_inputs['c1'] = None
 
-        if self.data['c2'] is not None and self.data['c2'] <= 0:
+        if self.form_inputs['c2'] is not None and self.form_inputs['c2'] <= 0:
             self.conc2_lineEdit.setStyleSheet("background-color: rgb(255, 219, 219);")
-            self.data['c2'] = None
+            self.form_inputs['c2'] = None
 
-        if self.data['conv'] is not None and not 0 < self.data['conv'] < 100:
+        if self.form_inputs['conv'] is not None and not 0 < self.form_inputs['conv'] < 100:
             self.conversion_lineEdit.setStyleSheet("background-color: rgb(255, 219, 219);")
-            self.data['conv'] = None
+            self.form_inputs['conv'] = None
 
     def check_fill_status(self):
-        self.data = {"G": evaluate_expression(self.G_neq_lineEdit.text()),
-                     "T": evaluate_expression(self.temp_lineEdit.text()),
-                     "c1": evaluate_expression(self.conc1_lineEdit.text()),
-                     "c2": evaluate_expression(self.conc2_lineEdit.text()),
-                     "t": evaluate_expression(self.total_time_lineEdit.text()),
-                     "conv": evaluate_expression(self.conversion_lineEdit.text()),
-                     "σ": evaluate_expression(self.sigma_lineEdit.text())}
+        self.form_inputs = {"G": evaluate_expression(self.G_neq_lineEdit.text()),
+                            "T": evaluate_expression(self.temp_lineEdit.text()),
+                            "c1": evaluate_expression(self.conc1_lineEdit.text()),
+                            "c2": evaluate_expression(self.conc2_lineEdit.text()),
+                            "t": evaluate_expression(self.total_time_lineEdit.text()),
+                            "conv": evaluate_expression(self.conversion_lineEdit.text()),
+                            "σ": evaluate_expression(self.sigma_lineEdit.text())}
 
         self.conv_label.setText("Conv. A")
         if self.bimolecular_AB_radioButton.isChecked():
-            if self.data["c1"] is not None and self.data["c2"] is not None:
-                if self.data["c1"] <= self.data["c2"]:
+            if self.form_inputs["c1"] is not None and self.form_inputs["c2"] is not None:
+                if self.form_inputs["c1"] <= self.form_inputs["c2"]:
                     self.conv_label.setText("Conv. A")
                 else:
                     self.conv_label.setText("Conv. B")
 
         # Change to SI units
-        if self.data['G'] is not None:
+        if self.form_inputs['G'] is not None:
             G_unit = self.energy_unit_comboBox.currentText()
             if G_unit == 'kJ/mol':
-                self.data['G'] *= 1000  # kJ-> J
+                self.form_inputs['G'] *= 1000  # kJ-> J
             elif G_unit == "kcal/mol":
-                self.data['G'] *= 1000 * kcal__kJ  # kcal-> J
+                self.form_inputs['G'] *= 1000 * kcal__kJ  # kcal-> J
             elif G_unit == "eV":
-                self.data['G'] *= 1000 * eV__kJ  # kcal-> J
+                self.form_inputs['G'] *= 1000 * eV__kJ  # kcal-> J
             else:
                 raise Exception("ComboBox Error")
 
-        if self.data['t'] is not None:
+        if self.form_inputs['t'] is not None:
             t_unit = self.time_unit_comboBox.currentText()
             if t_unit == 's':
                 pass
             elif t_unit == 'min':
-                self.data['t'] *= 60
+                self.form_inputs['t'] *= 60
             elif t_unit == 'h':
-                self.data['t'] *= 3600
+                self.form_inputs['t'] *= 3600
             elif t_unit == 'd':
-                self.data['t'] *= 86400
+                self.form_inputs['t'] *= 86400
             elif t_unit == 'year':
-                self.data['t'] *= 86400 * 365
+                self.form_inputs['t'] *= 86400 * 365
             else:
                 raise Exception("ComboBox Error")
 
-        if self.data['T'] is not None:
-            self.data['T'] += 273
+        if self.form_inputs['T'] is not None:
+            self.form_inputs['T'] += 273
 
-        if self.data['c1'] is not None:
-            self.data['c1'] *= 1000  # mol/L -> mol/m^3
+        if self.form_inputs['c1'] is not None:
+            self.form_inputs['c1'] *= 1000  # mol/L -> mol/m^3
 
-        if self.data['c2'] is not None:
-            self.data['c2'] *= 1000  # mol/L -> mol/m^3
+        if self.form_inputs['c2'] is not None:
+            self.form_inputs['c2'] *= 1000  # mol/L -> mol/m^3
 
-        if self.data['conv'] is not None:
-            self.data['conv'] /= 100  # percent to number
+        if self.form_inputs['conv'] is not None:
+            self.form_inputs['conv'] /= 100  # percent to number
 
         if self.kTST_lineEdit.text().startswith(self.kTST_is_calculated_marker):
-            self.data['kTST'] = None
+            self.form_inputs['kTST'] = None
         else:
-            self.data['kTST'] = evaluate_expression(self.kTST_lineEdit.text())
-            if not self.unimolecular_radioButton.isChecked() and self.data['kTST']:
-                self.data['kTST'] /= 1000  # L/mol·s --> m3/mol·s
+            self.form_inputs['kTST'] = evaluate_expression(self.kTST_lineEdit.text())
+            if not self.unimolecular_radioButton.isChecked() and self.form_inputs['kTST']:
+                self.form_inputs['kTST'] /= 1000  # L/mol·s --> m3/mol·s
 
         self.check_reasonable_input()
 
-        self.is_None = set([key for key, value in self.data.items() if value is None])
+        self.empty_items = set([key for key, value in self.form_inputs.items() if value is None])
         if self.unimolecular_radioButton.isChecked():
-            self.is_None.discard("c2")
-            self.is_None.discard("c1")
+            self.empty_items.discard("c2")
+            self.empty_items.discard("c1")
         elif self.bimolecular_AA_radioButton.isChecked():
-            self.is_None.discard("c2")
+            self.empty_items.discard("c2")
         elif self.bimolecular_A_Cat_radioButton.isChecked():
-            self.is_None.discard("c1")
+            self.empty_items.discard("c1")
 
         allowed_missing_situations = [["G", 'kTST'],
                                       ["T", 'kTST'],
@@ -384,11 +385,11 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
                                       ["T", 't'],
                                       ["T", 'conv']]
 
-        calc_allowed = any([set(x) == self.is_None for x in allowed_missing_situations])
+        calc_allowed = any([set(x) == self.empty_items for x in allowed_missing_situations])
         self.calculate_pushButton.setEnabled(calc_allowed)
 
         if len(self.last_unknowns) == 2:
-            recalc_allowed = any([set(x) == set(list(self.is_None) + self.last_unknowns) for x in allowed_missing_situations])
+            recalc_allowed = any([set(x) == set(list(self.empty_items) + self.last_unknowns) for x in allowed_missing_situations])
             self.recalc_pushButton.setEnabled(recalc_allowed)
         else:
             self.recalc_pushButton.setEnabled(False)
@@ -457,55 +458,50 @@ class myWidget(Ui_Eyring_Eq, QtWidgets.QWidget, Qt_Widget_Common_Functions):
         else:
             raise Exception("None of the radioButtons is checked.")
 
-        G, T, c1, c2, t, conv, σ, kTST = [self.data[key] for key in ["G", "T", "c1", "c2", "t", "conv", "σ", 'kTST']]
+        G, T, c1, c2, t, conv, σ, kTST = [self.form_inputs[key] for key in ["G", "T", "c1", "c2", "t", "conv", "σ", 'kTST']]
+
+        self.last_unknowns = copy.copy(list(self.empty_items))
 
         # 知道动力学，从动力学逆推kTST
-        if "t" not in self.is_None and 'conv' not in self.is_None:
+        if "t" not in self.empty_items and 'conv' not in self.empty_items:
             kTST = k_from_kinetics(conv, t, c1, c2)
             self.set_kTST_lineEdit(kTST)
-            self.last_unknowns.append("kTST")
 
         if kTST:
-            if "G" in self.is_None:  # 知道G不知道T
+            if "G" in self.empty_items:  # 知道G不知道T
                 G = solve_for_ΔG(kTST, Δn, σ, T)
                 # 把能量时间单位换回kJ/mol，填入答案，再把单位切换到想要的单位，这样对应的slot会自动换算单位
                 current_energy_unit = self.energy_unit_comboBox.currentText()
                 self.energy_unit_comboBox.setCurrentText("kJ/mol")
                 self.G_neq_lineEdit.setText(smart_format_float(G / 1000, precision=4))
-                self.last_unknowns.append("G")
                 self.energy_unit_comboBox.setCurrentText(current_energy_unit)
 
-            elif "T" in self.is_None:  # 知道T不知道G
+            elif "T" in self.empty_items:  # 知道T不知道G
                 T = solve_for_T(kTST, Δn, σ, G)
                 self.temp_lineEdit.setText(smart_format_float(T - 273.15, scientific_notation_limit=6))
-                self.last_unknowns.append("T")
 
         # 不知道动力学，从kTST算时间、转化率
-        if "G" not in self.is_None and "T" not in self.is_None:
-            print(f"Calculating rate constant from TST.\n    Δn: {Δn}, σ: {σ}, T: {T} K, ΔG: {G} J/mol.")
+        if "G" not in self.empty_items and "T" not in self.empty_items:
+            print(f"Calculating rate constant from TST.\n    Δn: {Δn}, σ: {σ}, T: {T} K, ΔG: {G} J/mol.\n")
             kTST = get_k_TST(Δn, σ, T, G)
             self.set_kTST_lineEdit(kTST)
-            self.last_unknowns.append("kTST")
-            if "t" in self.is_None:
+            if "t" in self.last_unknowns:
                 t = t_from_kinetics(kTST, conv, c1, c2)
 
                 # 把时间单位换回秒，填入答案，再把单位切换到想要的单位，这样对应的slot会自动换算单位
                 current_time_unit = self.time_unit_comboBox.currentText()
                 self.time_unit_comboBox.setCurrentText("s")
                 self.total_time_lineEdit.setText(smart_format_float(t))
-                self.last_unknowns.append("t")
                 self.time_unit_comboBox.setCurrentText(current_time_unit)
 
-            elif 'conv' in self.is_None:
+            elif 'conv' in self.last_unknowns:
                 conv = conv_from_kinetics(kTST, t, c1, c2)
-                self.last_unknowns.append("conv")
                 if conv == 1:
                     self.conversion_lineEdit.setText("~100")
                 else:
                     self.conversion_lineEdit.setText(smart_format_float(conv * 100))
 
-        self.last_unknowns = list(set(self.last_unknowns))
-        assert len(self.last_unknowns) == 2
+        assert len(self.last_unknowns) == 2, repr(self.last_unknowns)
         self.recalc_pushButton.setText("Recalc. " + self.RECALC_MAPPING[self.last_unknowns[0]] + " && " +
                                        self.RECALC_MAPPING[self.last_unknowns[1]])
         print("---------------------------------\n\n")
