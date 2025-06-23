@@ -4,15 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-scipy = "*"
-pyqt6 = "~=6.4.2"
-pyinstaller = "*"
+pipfile = "*"
+pyqt6 = "*"
 pyexcel-xlsx = "*"
 xlsxwriter = "*"
-pipfile = "*"
+scipy = "*"
+pyinstaller = "*"
 
 [dev-packages]
 pyinstaller = "*"
+xlsxwriter = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.10"

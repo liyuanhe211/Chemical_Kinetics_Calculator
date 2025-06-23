@@ -8,7 +8,7 @@ from Python_Lib.My_Lib_Stock import *
 
 import PyInstaller.__main__
 
-version = "1.3"
+version = "1.3.1"
 main_py_file = 'Eyring_Eq.py'
 path = 'Pyinstaller_Packing'
 work_path = os.path.join(path, f'temp_{version}')
@@ -17,7 +17,11 @@ generated_exe_name = f"Eyring Eq {version}.exe"
 icon = r"UI\Eyring_Eq.ico"
 include_all_folder_contents = []
 include_folders = ["UI", "Python_Lib", "Batch"]
-include_files = []
+include_files = [r"C:\Anaconda3\Library\bin\ffi.dll",
+                 r"C:\Anaconda3\Library\bin\libssl-1_1-x64.dll",
+                 r"C:\Anaconda3\Library\bin\libcrypto-1_1-x64.dll",
+                 r"C:\Anaconda3\Library\bin\libbz2.dll",
+                 r"C:\Anaconda3\Library\bin\liblzma.dll"]
 
 PyInstaller.__main__.run([main_py_file,
                           "--icon", icon,
