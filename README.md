@@ -1,16 +1,18 @@
 # Eyring Equation and Chemical Kinetics Calculator
 [![DOI](https://zenodo.org/badge/548741869.svg)](https://zenodo.org/badge/latestdoi/548741869)
 
-This is a small educational program that can solve the Eyring Equation and first/second order kinetics.
+A simple program to solve the Eyring Equation and first/second order kinetics.
+
+[Download](https://github.com/liyuanhe211/Chemical_Kinetics_Calculator/releases/download/1.3/Chemical.Kinetics.Calculator.1.3.zip)
 
 ##
 ### Launch
 
-You can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases) for Windows which includes the executable `Eyring Eq X.X.exe` (packed with `pyinstaller`).
+You can [download a release](https://github.com/liyuanhe211/Eyring_Eq/releases) for Windows 10/11 which includes the executable `Eyring Eq X.X.exe`.
 
 Alternatively, if you choose to set up your own environment:
 
-Launch a shell/cmd/PowerShell window from the cloned directory. Run:
+Get a Python environment (tested on Python 3.9). Launch a shell/cmd/PowerShell window from the cloned directory. Run:
 ```
 pip install pipenv
 mkdir .venv
@@ -22,7 +24,7 @@ pipenv run python Eyring_Eq.py
 
 ##
 ### Background
-In literature, people often quote inexact rules like "21 kcal/mol at room temperature" when discussing calculated activation Gibbs free energies. They might even ask for a reference to support these crude rules or ask for values at different conditions. However, it's easy to calculate the reaction time, required temperatures, etc. from the Eyring equation and first/second order kinetics (assuming the reaction is kinetically controlled). So, I created this small program for that purpose.
+In literature, people often quote inexact rules like "21 kcal/mol at room temperature" when discussing calculated activation Gibbs free energies. They (sometimes including reviewers) might even ask for references to support these crude rules or ask for values at different conditions, which are difficult to find for the exact condition you need. In contrast, based on Eyring equation and first/second order kinetics (assuming the reaction is kinetically controlled), it's easy to calculate the reaction time, required temperatures, etc, exactly to our need. I created this simple program to automate these calculations.
 ##
 ### Usage
 
@@ -87,8 +89,8 @@ $$\frac{1}{[A]} = \frac{1}{[A]_{0}}+kt$$
 ### Update History
 **1.3**
  * Support batch automation.
- * Remember the parameter that's calculated last time, and add a button to re-calculate the same parameter.
- * Bug fix for negative temperatures.
+ * Remembering the parameters used last time; added a re-calculate button.
+ * Bug fix for negative Celsius temperatures.
  
 **1.2**
  * Support A+Cat->P+Cat mode.
